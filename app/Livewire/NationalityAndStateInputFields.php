@@ -2,78 +2,46 @@
 
 namespace App\Livewire;
 
+use App\Models\County;
 use Livewire\Component;
-use Nnjeim\World\World;
 
 class NationalityAndStateInputFields extends Component
 {
-    public $nationalities;
-
-    public $nationality;
-
-    public $states;
-
-    public $state;
+    public $county;
+    public $searchTerm = '';
+    public $counties = [];
 
     protected $rules = [
-        'nationality' => 'string',
-        'state'       => 'string',
+        'county' => 'required|exists:counties,id',
     ];
 
     public function mount()
     {
-        // @phpstan-ignore-next-line
-        $this->nationalities = World::countries()->data->pluck('name');
+        // Set default county if not set (Uasin Gishu)
+        if (!$this->county) {
+            $defaultCounty = County::where('name', 'Uasin Gishu')->first();
+            $this->county = $defaultCounty ? $defaultCounty->id : null;
+        }
+        
+        // Initialize counties list
+        $this->counties = County::orderBy('name')->get();
+    }
 
-        //set nationality to null if not found
-        if ($this->nationality != null && !in_array($this->nationality, $this->nationalities->all())) {
-            $this->nationality = null;
+    public function updatedSearchTerm()
+    {
+        if (empty($this->searchTerm)) {
+            $this->counties = County::orderBy('name')->get();
+        } else {
+            $this->counties = County::where('name', 'like', '%' . $this->searchTerm . '%')
+                                  ->orderBy('name')
+                                  ->get();
         }
     }
 
-    public function updatedNationality()
+    public function updatedCounty()
     {
-        // $this->states = collect(World::where('name.common' , $this->nationality)->first()->hydrateStates()->states->pluck('name'));
-        $this->states = collect(World::countries([
-            'fields'  => 'states',
-            'filters' => [
-                'name' => $this->nationality,
-            ],
-        ])->data->pluck('states')->first());
-        if ($this->states->isEmpty()) {
-            $this->states = collect([['name' => $this->nationality]]);
-        }
-        $this->state = $this->states[0]['name'];
-
-        $this->dispatch('nationality-updated', ['nationality' => $this->nationality]);
-        $this->dispatch('state-updated', ['state' => $this->state]);
-    }
-
-    public function loadInitialStates()
-    {
-        if ($this->nationality == null) {
-            $this->nationality = $this->nationalities->first();
-        }
-        $this->states = collect(World::countries([
-            'fields'  => 'states',
-            'filters' => [
-                'name' => $this->nationality,
-            ],
-        ])->data->pluck('states')->first());
-        if ($this->states->isEmpty()) {
-            $this->states = collect([['name' => $this->nationality]]);
-        }
-        if ($this->state == null || in_array($this->state, $this->states->all())) {
-            $this->state = $this->states[0]['name'];
-        }
-
-        $this->dispatch('nationality-updated', ['nationality' => $this->nationality]);
-        $this->dispatch('state-updated', ['state' => $this->state]);
-    }
-
-    public function updatedState()
-    {
-        $this->dispatch('state-updated', ['state' => $this->state]);
+        $county = County::find($this->county);
+        $this->dispatch('county-updated', ['county' => $county->name]);
     }
 
     public function render()

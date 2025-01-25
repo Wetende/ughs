@@ -43,10 +43,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'address',
         'blood_group',
         'religion',
-        'nationality',
+        'county_id',
         'phone',
-        // 'state',
-        // 'city',
         'gender',
         'school_id',
     ];
@@ -235,7 +233,8 @@ class User extends Authenticatable implements MustVerifyEmail
     //get last name
     public function lastName()
     {
-        return explode(' ', $this->name)[1];
+        $nameParts = explode(' ', $this->name);
+        return count($nameParts) > 1 ? $nameParts[1] : '';
     }
 
     //get last name
@@ -247,9 +246,8 @@ class User extends Authenticatable implements MustVerifyEmail
     //get other names
     public function otherNames()
     {
-        $names = array_diff_key(explode(' ', $this->name), array_flip([0, 1]));
-
-        return implode(' ', $names);
+        $nameParts = explode(' ', $this->name);
+        return count($nameParts) > 2 ? implode(' ', array_slice($nameParts, 2)) : '';
     }
 
     //get other names
@@ -284,5 +282,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class);
+    }
+
+    /**
+     * Get the county associated with the user.
+     */
+    public function county()
+    {
+        return $this->belongsTo(County::class);
     }
 }

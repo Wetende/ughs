@@ -238,21 +238,21 @@ class Menu extends Component
             ],
             [
                 'type'    => 'menu-item',
-                'text'    => 'Semesters',
+                'text'    => 'Terms',
                 'icon'    => 'fas fa-clock',
-                'can'     => 'menu-semester',
+                'can'     => 'menu-term',
                 'submenu' => [
                     [
                         'type'  => 'menu-item',
-                        'text'  => 'View semesters',
-                        'route' => 'semesters.index',
-                        'can'   => 'read semester',
+                        'text'  => 'View terms',
+                        'route' => 'terms.index',
+                        'can'   => 'read term',
                     ],
                     [
                         'type'  => 'menu-item',
-                        'text'  => 'Create semester',
-                        'route' => 'semesters.create',
-                        'can'   => 'create semester',
+                        'text'  => 'Create term',
+                        'route' => 'terms.create',
+                        'can'   => 'create term',
                     ],
                 ],
             ],
@@ -431,8 +431,8 @@ class Menu extends Component
                     ],
                     [
                         'type'  => 'menu-item',
-                        'text'  => 'Semester Result Sheet',
-                        'route' => 'exams.semester-result-tabulation',
+                        'text'  => 'Term Result Sheet',
+                        'route' => 'exams.term-result-tabulation',
                         'can'   => 'read exam',
                     ],
                     [

@@ -78,11 +78,11 @@ Route::middleware('auth:sanctum',  'App\Http\Middleware\PreventLockAccountAccess
         Route::post('students/graduate', ['App\Http\Controllers\GraduationController', 'graduate']);
         Route::delete('students/graduations/{student}/reset', ['App\Http\Controllers\GraduationController', 'resetGraduation'])->name('students.graduations.reset');
 
-        //semester routes
-        Route::resource('semesters', SemesterController::class);
-        Route::post('semesters/set', ['App\Http\Controllers\SemesterController', 'setSemester'])->name('semesters.set-semester');
+        //term routes
+        Route::resource('terms', TermController::class);
+        Route::post('terms/set', ['App\Http\Controllers\TermController', 'setTerm'])->name('terms.set-term');
 
-        Route::middleware(['App\Http\Middleware\EnsureSemesterIsSet'])->group(function () {
+        Route::middleware(['App\Http\Middleware\EnsureTermIsSet'])->group(function () {
             //fee categories routes
             Route::resource('fees/fee-categories', FeeCategoryController::class);
 
@@ -125,7 +125,7 @@ Route::middleware('auth:sanctum',  'App\Http\Middleware\PreventLockAccountAccess
             Route::get('exams/tabulation-sheet', ['App\Http\Controllers\ExamController', 'examTabulation'])->name('exams.tabulation');
 
             //result tabulation sheet
-            Route::get('exams/semester-result-tabulation', ['App\Http\Controllers\ExamController', 'semesterResultTabulation'])->name('exams.semester-result-tabulation');
+            Route::get('exams/term-result-tabulation', ['App\Http\Controllers\ExamController', 'termResultTabulation'])->name('exams.term-result-tabulation');
             Route::get('exams/academic-year-result-tabulation', ['App\Http\Controllers\ExamController', 'academicYearResultTabulation'])->name('exams.academic-year-result-tabulation');
 
             //result checker

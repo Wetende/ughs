@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class EnsureSemesterIsSet
+class EnsureTermIsSet
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class EnsureSemesterIsSet
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->school->semester_id == null) {
-            session()->flash('danger', 'Please set the semester before proceeding.');
+        if (auth()->user()->school->term_id == null) {
+            session()->flash('danger', 'Please set the term before proceeding.');
 
-            return redirect()->route('semesters.index');
+            return redirect()->route('terms.index');
         }
 
         return $next($request);

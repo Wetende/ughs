@@ -28,7 +28,7 @@
                                 </div>
                                 @foreach ($menuItem['submenu'] as $submenu)
                                     @if ($submenu['can'] && auth()->user()->can($submenu['can']))
-                                        <a class="flex items-center gap-2 p-3 px-4 my-2 transition-all rounded whitespace-nowrap  {{( Route::currentRouteName() == $submenu['route'] ? 'bg-white  text-black': 'hover:bg-white hover:bg-opacity-5' )}}" :class="{'h-0 my-auto overflow-hidden py-0' : submenu == false,}" x-transition href="{{route($submenu['route'])}}"" aria-label="{{$submenu['text']}}" @focus="submenu = true"  @blur="submenu = false"  wire:navigate>
+                                        <a class="flex items-center gap-2 p-3 px-4 my-2 transition-all rounded whitespace-nowrap  {{( Route::currentRouteName() == $submenu['route'] ? 'bg-white  text-black': 'hover:bg-white hover:bg-opacity-5' )}}" :class="{'h-0 my-auto overflow-hidden py-0' : submenu == false}" href="{{route($submenu['route'])}}" aria-label="{{$submenu['text']}}" @focus="submenu = true" @blur="submenu = false" wire:navigate>
                                             <i class="{{$submenu['icon'] ?? 'far fa-fw fa-circle'}} " aria-hidden="true"></i>
                                             <p x-show="menuOpen">{{$submenu['text']}}</p>
                                         </a>

@@ -14,7 +14,7 @@ class Exam extends Model
     protected $fillable = [
         'name',
         'description',
-        'semester_id',
+        'term_id',
         'start_date',
         'stop_date',
         'active',
@@ -34,9 +34,9 @@ class Exam extends Model
         'publish_result'    => 'boolean',
     ];
 
-    public function semester(): BelongsTo
+    public function term(): BelongsTo
     {
-        return $this->belongsTo(Semester::class);
+        return $this->belongsTo(Term::class);
     }
 
     public function examSlots(): HasMany
@@ -65,8 +65,8 @@ class Exam extends Model
      *
      * @return int
      */
-    public function calculateStudentTotalMarkInSubjectForSemester(Semester $semester, User $user, Subject $subject)
+    public function calculateStudentTotalMarkInSubjectForTerm(Term $term, User $user, Subject $subject)
     {
-        return $this->examRecordService->getAllUserExamRecordInSemesterForSubject($semester, $user->id, $subject->id)->pluck('student_marks')->sum();
+        return $this->examRecordService->getAllUserExamRecordInTermForSubject($term, $user->id, $subject->id)->pluck('student_marks')->sum();
     }
 }

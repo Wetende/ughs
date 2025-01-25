@@ -63,10 +63,10 @@ class School extends Model
     }
 
     /**
-     * Get the semester associated with the School.
+     * Get the current term for the school.
      */
-    public function semester(): HasOne
+    public function term()
     {
-        return $this->hasOne(Semester::class, 'id', 'semester_id');
+        return $this->hasOne(Term::class, 'id', 'term_id');
     }
 }

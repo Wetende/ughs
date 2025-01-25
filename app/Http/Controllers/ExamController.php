@@ -26,7 +26,8 @@ class ExamController extends Controller
      */
     public function index(): View
     {
-        return view('pages.exam.index');
+        $exams = $this->examService->getAllExamsInTerm(auth()->user()->school->term_id);
+        return view('pages.exam.index', compact('exams'));
     }
 
     /**
@@ -42,10 +43,14 @@ class ExamController extends Controller
      */
     public function store(StoreExamRequest $request): RedirectResponse
     {
-        $data = $request->except('_token');
-        $exam = $this->examService->createExam($data);
+        try {
+            $data = $request->except('_token');
+            $exam = $this->examService->createExam($data);
 
-        return redirect()->route('exam-slots.create', $exam)->with('success', 'Exam created successfully, Now, create exam slots for the exam');
+            return redirect()->route('exam-slots.create', $exam)->with('success', 'Exam created successfully, Now, create exam slots for the exam');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error creating exam: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -69,10 +74,14 @@ class ExamController extends Controller
      */
     public function update(UpdateExamRequest $request, Exam $exam): RedirectResponse
     {
-        $data = $request->except(['_method', '_token']);
-        $this->examService->updateExam($exam, $data);
+        try {
+            $data = $request->except(['_method', '_token']);
+            $this->examService->updateExam($exam, $data);
 
-        return back()->with('success', 'Exam updated successfully');
+            return back()->with('success', 'Exam updated successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error updating exam: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -96,13 +105,13 @@ class ExamController extends Controller
     }
 
     /**
-     * Tabulation for semester results.
+     * Tabulation for term results.
      */
-    public function semesterResultTabulation(): View
+    public function termResultTabulation(): View
     {
         $this->authorize('viewAny', Exam::class);
 
-        return view('pages.exam.semester-result-tabulation');
+        return view('pages.exam.term-result-tabulation');
     }
 
     /**

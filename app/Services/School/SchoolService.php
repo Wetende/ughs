@@ -13,117 +13,60 @@ class SchoolService
     /**
      * @var UserService
      */
-    public $user;
+    private $userService;
 
     /**
      * User service constructor.
      */
     public function __construct(UserService $user)
     {
-        $this->user = $user;
+        $this->userService = $user;
     }
 
     /**
-     * Get all schools.
+     * Get the school.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param int|null $id
+     * @return School
      */
-    public function getAllSchools()
+    public function getSchool(int $id = null): School
     {
-        return School::all();
+        // Since we're using a single school system, always return the first school
+        return School::first();
     }
 
     /**
-     * Get a school by id.
+     * Get the school by ID.
      *
      * @param int $id
-     *
-     * @return \App\Models\School
+     * @return School
      */
-    public function getSchoolById($id)
+    public function getSchoolById(int $id): School
     {
-        return School::find($id);
-    }
-
-    /**
-     * Create school.
-     *
-     * @param array $record
-     *
-     * @return \App\Models\School
-     */
-    public function createSchool($record)
-    {
-        $record['code'] = $this->generateSchoolCode();
-
-        if (isset($record['logo'])) {
-            $record['logo_path'] = Storage::disk('public')->put('schools', $record['logo']);
-            unset($record['logo']);
-        }
-
-        $school = School::create($record);
-
-        return $school;
+        // Since we're using a single school system, always return the first school
+        return School::first();
     }
 
     /**
      * Update school.
      *
-     * @return \App\Models\School
+     * @param School $school
+     * @param array $record
+     *
+     * @return School
      */
-    public function updateSchool(School $school, $record)
+    public function updateSchool(School $school, array $record): School
     {
-        $school->name = $record['name'];
-        $school->address = $record['address'];
-        $school->initials = $record['initials'];
-        $school->phone = $record['phone'];
-        $school->email = $record['email'];
-
         if (isset($record['logo'])) {
-            $school->logo_path = Storage::disk('public')->put('schools', $record['logo']);
+            if ($school->logo_path) {
+                Storage::disk('public')->delete($school->logo_path);
+            }
+            $record['logo_path'] = Storage::disk('public')->put('schools', $record['logo']);
+            unset($record['logo']);
         }
 
-        $school->save();
+        $school->update($record);
 
         return $school;
-    }
-
-    /**
-     * Set authenticated user's school.
-     *
-     * @param \App\Models\School
-     *
-     * @return void
-     */
-    public function setSchool(School $school)
-    {
-        auth()->user()->school_id = $school->id;
-        auth()->user()->save();
-    }
-
-    /**
-     * Generate school code.
-     *
-     * @return string
-     */
-    public function generateSchoolCode()
-    {
-        return Str::random(10);
-    }
-
-    /**
-     * Delete school.
-     *
-     *
-     * @return void
-     */
-    public function deleteSchool(School $school)
-    {
-        if ($school->users->count('id')) {
-            throw new ResourceNotEmptyException('Remove all users from this school and make sure school is not set for any super admin');
-
-            return;
-        }
-        $school->delete();
     }
 }

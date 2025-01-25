@@ -10,11 +10,11 @@ class RegistrationForm extends Component
 {
     public $roles;
 
-    public $schools;
+    public $school;
 
     public function mount(SchoolService $schoolService)
     {
-        $this->schools = $schoolService->getAllSchools();
+        $this->school = $schoolService->getSchool();
         $this->roles = Role::whereIn('name', ['teacher', 'student', 'parent'])->get();
     }
 

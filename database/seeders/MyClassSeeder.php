@@ -47,7 +47,7 @@ class MyClassSeeder extends Seeder
         MyClass::firstOrcreate([
             'id'             => 7,
             'name'           => 'Primary 2',
-            'class_group_id' => 4,
+            'class_group_id' => 3,  
         ]);
         MyClass::factory()->count(5)->create();
     }

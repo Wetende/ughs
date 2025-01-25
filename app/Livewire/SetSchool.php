@@ -7,11 +7,11 @@ use Livewire\Component;
 
 class SetSchool extends Component
 {
-    public $schools;
+    public $school;
 
     public function mount(SchoolService $schoolService)
     {
-        $this->schools = $schoolService->getAllSchools();
+        $this->school = $schoolService->getSchool();
     }
 
     public function render()

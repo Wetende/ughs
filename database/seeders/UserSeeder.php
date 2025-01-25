@@ -21,18 +21,22 @@ class UserSeeder extends Seeder
 
         $superAdmin = User::firstOrCreate([
             'id'                => 1,
-            'name'              => 'John Doe',
             'email'             => 'super@admin.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'John',
+            'last_name'         => 'Doe',
+            'username'          => 'superadmin',
             'address'           => 'super admin street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
             'blood_group'       => 'B+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
             'gender'            => 'male',
+            'phone'             => '+254700000000',
         ]);
 
         $superAdmin->assignRole('super-admin');
@@ -40,38 +44,45 @@ class UserSeeder extends Seeder
 
         $admin = User::firstOrCreate([
             'id'                => 2,
-            'name'              => 'Jane Doe',
             'email'             => 'admin@admin.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'Jane',
+            'last_name'         => 'Doe',
+            'username'          => 'admin',
             'address'           => 'admin street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
-            'blood_group'       => 'B+',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
+            'blood_group'       => 'A+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
-            'gender'            => 'male',
-
+            'gender'            => 'female',
+            'phone'             => '+254700000001',
         ]);
 
         $admin->assignRole('admin');
+        $admin->save();
 
         $teacher = User::create([
             'id'                => 3,
-            'name'              => 'John Doe',
             'email'             => 'teacher@teacher.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'John',
+            'last_name'         => 'Doe',
+            'username'          => 'teacher',
             'address'           => 'teacher street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
             'blood_group'       => 'B+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
             'gender'            => 'male',
-
+            'phone'             => '+254700000002',
         ]);
 
         $teacher->assignRole('teacher');
@@ -82,23 +93,27 @@ class UserSeeder extends Seeder
 
         $student = User::create([
             'id'                => 4,
-            'name'              => 'Jane Doe',
             'email'             => 'student@student.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'Jane',
+            'last_name'         => 'Doe',
+            'username'          => 'student',
             'address'           => 'student street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
-            'blood_group'       => 'B+',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
+            'blood_group'       => 'A+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
-            'gender'            => 'male',
+            'gender'            => 'female',
+            'phone'             => '+254700000003',
         ]);
         $student->studentRecord()->create([
             'my_class_id'      => 1,
             'section_id'       => 1,
-            'admission_date'   => '22/04/04',
+            'admission_date'   => '2000-01-01',
             'is_graduated'     => false,
             'admission_number' => Str::random(10),
         ]);
@@ -106,19 +121,22 @@ class UserSeeder extends Seeder
         $student->assignRole('student');
 
         $parent = User::create([
-            'name'              => 'John Doe',
             'email'             => 'parent@parent.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'John',
+            'last_name'         => 'Doe',
+            'username'          => 'parent',
             'address'           => 'parent street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
             'blood_group'       => 'B+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
             'gender'            => 'male',
-
+            'phone'             => '+254700000004',
         ]);
 
         $parent->assignRole('parent');
@@ -126,37 +144,43 @@ class UserSeeder extends Seeder
         $parent->parentRecord()->create();
 
         $accountant = User::create([
-            'name'              => 'Jane Doe',
             'email'             => 'accountant@accountant.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'Jane',
+            'last_name'         => 'Doe',
+            'username'          => 'accountant',
             'address'           => 'accountant street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
-            'blood_group'       => 'B+',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
+            'blood_group'       => 'A+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
-            'gender'            => 'male',
-
+            'gender'            => 'female',
+            'phone'             => '+254700000005',
         ]);
 
         $accountant->assignRole('accountant');
 
         $librarian = User::create([
-            'name'              => 'John Doe',
             'email'             => 'libratian@librarian.com',
             'password'          => Hash::make('password'),
             'school_id'         => 1,
+            'first_name'        => 'John',
+            'last_name'         => 'Doe',
+            'username'          => 'librarian',
             'address'           => 'librarian street',
-            'birthday'          => '22/04/04',
-            'nationality'       => 'nigeria',
-            'state'             => 'lagos',
-            'city'              => 'lagos',
+            'birthday'          => '2000-01-01',
+            'nationality'       => 'Kenya',
+            'state'             => 'Uasin Gishu',
+            'city'              => 'Eldoret',
             'blood_group'       => 'B+',
+            'denomination'      => 'Christian',
             'email_verified_at' => now(),
             'gender'            => 'male',
-
+            'phone'             => '+254700000006',
         ]);
 
         $librarian->assignRole('librarian');

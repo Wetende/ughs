@@ -6,11 +6,11 @@
                         <option value="{{$item['id']}}">{{$item['name']}}</option>
                     @endforeach
             </x-select>
-            <x-select id="school" name="school" label="School" class="text-capitalize">    
-                    @foreach ($schools as $item)
-                        <option value="{{$item['id']}}" >{{$item['name']}} - {{$item['address']}}</option>
-                    @endforeach
-            </x-select>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">School</label>
+                <input type="text" class="form-control" value="{{ $school->name }}" readonly>
+                <input type="hidden" name="school_id" value="{{ $school->id }}">
+            </div>
             <livewire:create-user-fields/>
             @csrf
             <x-button label="Register" icon="fas fa-key" type="submit" class="w-full md:w-3/12"/>

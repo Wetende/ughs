@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class() extends Migration {
     /**
@@ -13,17 +14,29 @@ return new class() extends Migration {
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('school_id')->nullable()->constrained()->nullOnDelete()->onUpdate('cascade');
+            $table->foreignId('school_id')->nullable()->constrained();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('other_names')->nullable();
+            $table->string('username')->unique()->nullable();
             $table->string('gender')->nullable();
-            $table->date('birthday');
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('birthday')->nullable();
             $table->string('nationality')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
-            $table->string('religion')->nullable();
-            $table->string('blood_group');
-            $table->string('phone')->nullable();
-            $table->string('address');
+            $table->string('blood_group')->nullable();
+            $table->string('denomination')->nullable();
+            $table->boolean('account_locked')->default(false);
+            $table->boolean('must_change_password')->default(true);
         });
+
+        // Set default school for all users
+        $defaultSchool = DB::table('schools')->first();
+        if ($defaultSchool) {
+            DB::table('users')->update(['school_id' => $defaultSchool->id]);
+        }
     }
 
     /**

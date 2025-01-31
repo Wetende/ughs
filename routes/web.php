@@ -1,6 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountApplicationController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AcademicYearController;
+use App\Http\Controllers\ClassGroupController;
+use App\Http\Controllers\CustomTimetableItemController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExamRecordController;
+use App\Http\Controllers\ExamSlotController;
+use App\Http\Controllers\FeeCategoryController;
+use App\Http\Controllers\FeeController;
+use App\Http\Controllers\FeeInvoiceController;
+use App\Http\Controllers\FeeInvoiceRecordController;
+use App\Http\Controllers\GradeSystemController;
+use App\Http\Controllers\MyClassController;
+use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\ParentController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\SyllabusController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TermController;
+use App\Http\Controllers\TimetableController;
+use App\Http\Controllers\TimetableTimeSlotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +55,12 @@ Route::middleware(['guest'])->group(function () {
 });
 
 //user must be authenticated
-Route::middleware('auth:sanctum',  'App\Http\Middleware\PreventLockAccountAccess', 'App\Http\Middleware\EnsureDefaultPasswordIsChanged', 'App\Http\Middleware\PreventGraduatedStudent')->prefix('dashboard')->namespace('App\Http\Controllers')->group(function () {
+Route::middleware([
+    'auth:sanctum',
+    'App\Http\Middleware\PreventLockAccountAccess',
+    'App\Http\Middleware\EnsureDefaultPasswordIsChanged',
+    'App\Http\Middleware\PreventGraduatedStudent'
+])->prefix('dashboard')->namespace('App\Http\Controllers')->group(function () {
     // School routes
     Route::middleware(['auth'])->group(function () {
         // School settings

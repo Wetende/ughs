@@ -283,7 +283,7 @@ class InitCommand extends Command
     {
         $this->line('Now to perform some finishing touches, this process might take a long time because the application is adding essential data into the application');
         $this->call('storage:link');
-        $this->call('db:seed', ['--class' => 'WorldSeeder']);
+        $this->call('db:seed');
         $this->clearCaches();
         $this->alert('Installation Completed');
     }

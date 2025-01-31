@@ -36,23 +36,28 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'username',
         'email',
         'password',
         'birthday',
         'address',
         'blood_group',
-        'religion',
+        'denomination',
         'county_id',
+        'city',
         'phone',
         'gender',
         'school_id',
+        'id_number',
+        'passport_number'
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $hidden = [
         'password',
@@ -64,11 +69,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that should be cast.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'birthday'          => 'datetime:Y-m-d',
+        'birthday' => 'date',
     ];
 
     /**
@@ -285,10 +290,60 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the county associated with the user.
+     * Get the county that the user belongs to.
      */
-    public function county()
+    public function county(): BelongsTo
     {
         return $this->belongsTo(County::class);
+    }
+
+    /**
+     * Get validation rules based on user role
+     */
+    public static function getValidationRules($role = null)
+    {
+        // Base required fields for all users
+        $baseRules = [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|unique:users|max:255',
+            'gender' => 'required|in:male,female',
+        ];
+
+        if ($role === 'student') {
+            return array_merge($baseRules, [
+                // Additional required field for students
+                'admission_number' => 'required|string|unique:student_records',
+                
+                // All other fields are nullable for students
+                'phone' => 'nullable|string',
+                'id_number' => 'nullable|string',
+                'passport_number' => 'nullable|string',
+                'birthday' => 'nullable|date',
+                'address' => 'nullable|string',
+                'blood_group' => 'nullable|string',
+                'denomination' => 'nullable|string',
+                'county_id' => 'nullable|exists:counties,id',
+                'city' => 'nullable|string',
+            ]);
+        }
+
+        // Rules for superadmin, admin, teacher, parent
+        return array_merge($baseRules, [
+            // Additional required fields for non-students
+            'phone' => 'required|string',
+            'id_number' => 'required_without:passport_number|string',
+            'passport_number' => 'required_without:id_number|string',
+            
+            // Optional fields for non-students
+            'birthday' => 'nullable|date',
+            'address' => 'nullable|string',
+            'blood_group' => 'nullable|string',
+            'denomination' => 'nullable|string',
+            'county_id' => 'nullable|exists:counties,id',
+            'city' => 'nullable|string',
+        ]);
     }
 }

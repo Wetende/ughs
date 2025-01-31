@@ -7,12 +7,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StudentRecord extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['admission_number', 'admission_date', 'my_class_id', 'section_id', 'user_id'];
+    protected $fillable = [
+        'admission_number',
+        'admission_date',
+        'my_class_id',
+        'section_id',
+        'user_id',
+        'is_graduated'
+    ];
 
     /**
      * The attributes that should be cast.
@@ -20,8 +28,22 @@ class StudentRecord extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'admission_date' => 'datetime:Y-m-d',
+        'admission_date' => 'date',
+        'is_graduated' => 'boolean',
     ];
+
+    /**
+     * Get validation rules for student records
+     */
+    public static function getValidationRules()
+    {
+        return [
+            'admission_number' => 'required|string|unique:student_records',
+            'admission_date' => 'nullable|date',
+            'my_class_id' => 'nullable|exists:my_classes,id',
+            'section_id' => 'nullable|exists:sections,id',
+        ];
+    }
 
     /**
      * The "booted" method of the model.
@@ -48,7 +70,7 @@ class StudentRecord extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function myClass()
+    public function myClass(): BelongsTo
     {
         return $this->belongsTo(MyClass::class);
     }
@@ -58,7 +80,7 @@ class StudentRecord extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function section()
+    public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
     }
@@ -68,7 +90,7 @@ class StudentRecord extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

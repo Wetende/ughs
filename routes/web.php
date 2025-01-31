@@ -54,6 +54,11 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', ['App\Http\Controllers\RegistrationController', 'register']);
 });
 
+// Registration routes
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])
+    ->name('register')
+    ->middleware('guest');
+
 //user must be authenticated
 Route::middleware([
     'auth:sanctum',
@@ -61,6 +66,12 @@ Route::middleware([
     'App\Http\Middleware\EnsureDefaultPasswordIsChanged',
     'App\Http\Middleware\PreventGraduatedStudent'
 ])->prefix('dashboard')->namespace('App\Http\Controllers')->group(function () {
+    
+    // Default dashboard - handles all roles
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard')->withoutMiddleware(['App\Http\Middleware\PreventGraduatedStudent']);
+
     // School routes
     Route::middleware(['auth'])->group(function () {
         // School settings
@@ -68,11 +79,6 @@ Route::middleware([
         Route::post('/school/settings', [SchoolController::class, 'setSchool'])->name('school.setSchool');
         Route::put('/school/settings', [SchoolController::class, 'update'])->name('school.update');
     });
-
-    //dashboard route
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard')->withoutMiddleware(['App\Http\Middleware\PreventGraduatedStudent']);
 
     //class routes
     Route::resource('classes', MyClassController::class);

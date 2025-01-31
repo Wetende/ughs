@@ -16,13 +16,13 @@ class Timetable extends Model
     protected $fillable = [
         'name',
         'description',
-        'semester_id',
+        'term_id',
         'my_class_id',
     ];
 
-    public function semester(): BelongsTo
+    public function term(): BelongsTo
     {
-        return $this->belongsTo(Semester::class);
+        return $this->belongsTo(Term::class);
     }
 
     public function myClass(): BelongsTo

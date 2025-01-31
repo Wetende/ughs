@@ -21,7 +21,7 @@ class TimetableFactory extends Factory
             'name'        => $this->faker->name,
             'description' => $this->faker->text,
             'my_class_id' => 1,
-            'semester_id' => 1,
+            'term_id'     => 1,
         ];
     }
 }

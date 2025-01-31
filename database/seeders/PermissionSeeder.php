@@ -66,7 +66,7 @@ class PermissionSeeder extends Seeder
             'name' => 'delete class',
         ]);
 
-        // Permissions for sectionm
+        // Permissions for section
         Permission::firstOrCreate([
             'name' => 'create section',
         ]);
@@ -189,22 +189,22 @@ class PermissionSeeder extends Seeder
             'name' => 'reset graduation',
         ]);
 
-        //permission for semesters
+        //permission for terms
         Permission::firstOrCreate([
-            'name' => 'create semester',
+            'name' => 'create term',
         ]);
         Permission::firstOrCreate([
-            'name' => 'read semester',
+            'name' => 'read term',
         ]);
         Permission::firstOrCreate([
-            'name' => 'update semester',
+            'name' => 'update term',
         ]);
         Permission::firstOrCreate([
-            'name' => 'delete semester',
+            'name' => 'delete term',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'set semester',
+            'name' => 'set term',
         ]);
 
         //permission for syllabus
@@ -446,7 +446,7 @@ class PermissionSeeder extends Seeder
             'name' => 'menu-academic-year',
         ]);
         Permission::firstOrCreate([
-            'name' => 'menu-semester',
+            'name' => 'menu-term',
         ]);
         Permission::firstOrCreate([
             'name' => 'menu-subject',
@@ -489,7 +489,7 @@ class PermissionSeeder extends Seeder
             'menu-subject',
             'menu-syllabus',
             'menu-timetable',
-            'menu-semester',
+            'menu-term',
             'menu-exam',
             'menu-grade-system',
             'menu-notice',
@@ -532,11 +532,11 @@ class PermissionSeeder extends Seeder
             'graduate student',
             'view graduations',
             'reset graduation',
-            'create semester',
-            'read semester',
-            'update semester',
-            'delete semester',
-            'set semester',
+            'create term',
+            'read term',
+            'update term',
+            'delete term',
+            'set term',
             'create syllabus',
             'read syllabus',
             'update syllabus',

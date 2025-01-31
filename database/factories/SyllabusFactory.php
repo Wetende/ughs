@@ -22,7 +22,7 @@ class SyllabusFactory extends Factory
             'name'        => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'subject_id'  => 1,
-            'semester_id' => 1,
+            'term_id'     => 1,
             'file'        => $file,
         ];
     }

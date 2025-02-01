@@ -41,14 +41,51 @@ use App\Http\Controllers\TimetableTimeSlotController;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('dashboard');
-})->name('home');
+// Public routes
+Route::middleware(['web'])->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    })->name('home');
 
-Route::get('/home', function () {
-    return redirect()->route('dashboard');
+    // Auth routes
+    Route::get('/auth/login', function () {
+        return view('auth.login');
+    })->name('login');
+
+    Route::get('/about', function () {
+        return view('about');
+    })->name('about');
+
+    Route::get('/about/history', function () {
+        return view('about.history');
+    })->name('about.history');
+
+    Route::get('/about/leadership', function () {
+        return view('about.leadership');
+    })->name('about.leadership');
+
+    Route::get('/academics', function () {
+        return view('academics');
+    })->name('academics');
+
+    Route::get('/admissions', function () {
+        return view('admissions');
+    })->name('admissions');
+
+    Route::get('/student-life', function () {
+        return view('student-life');
+    })->name('student-life');
+
+    Route::get('/news', function () {
+        return view('news');
+    })->name('news');
+
+    Route::get('/contact', function () {
+        return view('contact');
+    })->name('contact');
 });
 
+// Authentication routes
 Route::middleware(['guest'])->group(function () {
     Route::get('/register', ['App\Http\Controllers\RegistrationController', 'registerView'])->name('register');
     Route::post('/register', ['App\Http\Controllers\RegistrationController', 'register']);

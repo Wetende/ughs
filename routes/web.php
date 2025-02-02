@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountApplicationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\ClassGroupController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomTimetableItemController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExamRecordController;
@@ -47,11 +48,7 @@ Route::middleware(['web'])->group(function () {
         return view('home');
     })->name('home');
 
-    // Auth routes
-    Route::get('/auth/login', function () {
-        return view('auth.login');
-    })->name('login');
-
+    // About routes
     Route::get('/about', function () {
         return view('about');
     })->name('about');
@@ -64,37 +61,58 @@ Route::middleware(['web'])->group(function () {
         return view('about.leadership');
     })->name('about.leadership');
 
+    // Academics route
     Route::get('/academics', function () {
         return view('academics');
     })->name('academics');
 
-    Route::get('/admissions', function () {
-        return view('admissions');
-    })->name('admissions');
-
+    // Student Life route
     Route::get('/student-life', function () {
         return view('student-life');
     })->name('student-life');
+
+    // Gallery route
+    Route::get('/gallery', function () {
+        return view('gallery');
+    })->name('gallery');
+
+    // Alumni route
+    Route::get('/alumni', function () {
+        return view('alumni');
+    })->name('alumni');
+
+    // Resources route
+    Route::get('/resources', function () {
+        return view('resources');
+    })->name('resources');
+
+    // Contact route
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+    // Auth routes
+    Route::get('/auth/login', function () {
+        return view('auth.login');
+    })->name('login');
 
     Route::get('/news', function () {
         return view('news');
     })->name('news');
 
-    Route::get('/contact', function () {
-        return view('contact');
-    })->name('contact');
-});
+    Route::get('/admissions', function () {
+        return view('admissions');
+    })->name('admissions');
 
-// Authentication routes
-Route::middleware(['guest'])->group(function () {
-    Route::get('/register', ['App\Http\Controllers\RegistrationController', 'registerView'])->name('register');
-    Route::post('/register', ['App\Http\Controllers\RegistrationController', 'register']);
-});
+    Route::middleware(['guest'])->group(function () {
+        Route::get('/register', ['App\Http\Controllers\RegistrationController', 'registerView'])->name('register');
+        Route::post('/register', ['App\Http\Controllers\RegistrationController', 'register']);
+    });
 
-// Registration routes
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])
-    ->name('register')
-    ->middleware('guest');
+    // Registration routes
+    Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])
+        ->name('register')
+        ->middleware('guest');
+});
 
 //user must be authenticated
 Route::middleware([

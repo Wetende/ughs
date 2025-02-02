@@ -27,6 +27,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\TimetableTimeSlotController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,14 +87,20 @@ Route::middleware(['web'])->group(function () {
         return view('resources');
     })->name('resources');
 
+    // Authentication Routes
+    Route::middleware(['web'])->group(function () {
+        Route::get('auth/login', [AuthController::class, 'showLoginForm'])->name('login');
+        Route::post('auth/login', [AuthController::class, 'login'])->name('login.submit');
+        Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('auth/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+        Route::post('auth/register', [AuthController::class, 'register'])->name('register.submit');
+        Route::get('auth/password/reset', [AuthController::class, 'showResetForm'])->name('password.request');
+        Route::post('auth/password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+    });
+
     // Contact route
     Route::get('/contact', [ContactController::class, 'show'])->name('contact');
     Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
-
-    // Auth routes
-    Route::get('/auth/login', function () {
-        return view('auth.login');
-    })->name('login');
 
     Route::get('/news', function () {
         return view('news');
@@ -104,14 +111,11 @@ Route::middleware(['web'])->group(function () {
     })->name('admissions');
 
     Route::middleware(['guest'])->group(function () {
-        Route::get('/register', ['App\Http\Controllers\RegistrationController', 'registerView'])->name('register');
-        Route::post('/register', ['App\Http\Controllers\RegistrationController', 'register']);
+        // Removed duplicate login route
     });
 
     // Registration routes
-    Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])
-        ->name('register')
-        ->middleware('guest');
+    // Removed duplicate registration route
 });
 
 //user must be authenticated

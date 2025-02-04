@@ -30,6 +30,7 @@
                     </div>
                 </div>
 
+                <a href="{{ route('notice-board') }}" class="text-white hover:text-yellow-400 transition">Notice Board</a>
                 <a href="{{ route('resources') }}" class="text-white hover:text-yellow-400 transition">Resources</a>
                 <a href="{{ route('contact') }}" class="text-white hover:text-yellow-400 transition">Contact</a>
             </div>
@@ -64,6 +65,7 @@
                     <a href="{{ route('career-network') }}" class="block text-white hover:text-yellow-400 transition">Career Network</a>
                 </div>
 
+                <a href="{{ route('notice-board') }}" class="text-white hover:text-yellow-400 transition">Notice Board</a>
                 <a href="{{ route('resources') }}" class="text-white hover:text-yellow-400 transition">Resources</a>
                 <a href="{{ route('contact') }}" class="text-white hover:text-yellow-400 transition">Contact</a>
             </div>

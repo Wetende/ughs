@@ -102,6 +102,11 @@ Route::middleware(['web'])->group(function () {
         return view('resources');
     })->name('resources');
 
+    // Notice Board route
+    Route::get('/notice-board', function () {
+        return view('notice-board');
+    })->name('notice-board');
+
     // Authentication Routes
     Route::middleware(['web'])->group(function () {
         Route::get('auth/login', [AuthController::class, 'showLoginForm'])->name('login');

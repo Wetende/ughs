@@ -1,10 +1,7 @@
 @extends('layouts.guest')
-
-
-@section('title', 'Career Network - Uasin Gishu High School')
-
-@section('body')
 @include('partials.navigation')
+
+@section('content')
 <!-- Hero Section -->
 <div class="relative bg-[#22345b] py-20">
     <div class="container mx-auto px-4">

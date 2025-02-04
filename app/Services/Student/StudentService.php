@@ -100,6 +100,11 @@ class StudentService
     public function createStudent($record)
     {
         DB::transaction(function () use ($record) {
+            // Set default admission date if not provided
+            if (!isset($record['admission_date'])) {
+                $record['admission_date'] = date('Y-m-d');
+            }
+            
             $student = $this->userService->createUser($record);
             $student->assignRole('student');
 

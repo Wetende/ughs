@@ -25,9 +25,19 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white !important;
+        }
+        .swiper-pagination-bullet {
+            background: white !important;
+        }
+        .swiper-pagination-bullet-active {
+            background: #1b5454 !important;
+        }
     </style>
     
-    @stack('styles')
+    @yield('styles')
 </head>
 <body class="flex flex-col min-h-screen">
     @include('partials.topbar')
@@ -44,7 +54,7 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    @stack('scripts')
+    @yield('scripts')
     <script>
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');

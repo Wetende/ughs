@@ -8,10 +8,6 @@
 
 @section('content')
 
-@can('set school')
-    @livewire('set-school')
-@endcan
-
 @livewire('dashboard-data-cards')
 
 @livewire('set-academic-year')

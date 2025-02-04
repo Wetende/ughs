@@ -21,6 +21,7 @@ class SchoolController extends Controller
     public function __construct(SchoolService $schoolService)
     {
         $this->schoolService = $schoolService;
+        $this->middleware(['auth', 'can:manage settings']);
     }
 
     /**
@@ -30,18 +31,6 @@ class SchoolController extends Controller
     {
         $school = School::first();
         return view('pages.school.edit', compact('school'));
-    }
-
-    /**
-     * Set school for the current user.
-     */
-    public function setSchool(): RedirectResponse
-    {
-        $school = School::first();
-        auth()->user()->school_id = $school->id;
-        auth()->user()->save();
-
-        return redirect()->route('dashboard')->with('success', __('School set successfully'));
     }
 
     /**

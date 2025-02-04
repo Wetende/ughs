@@ -16,13 +16,13 @@ class SectionSeeder extends Seeder
     {
         Section::firstOrCreate([
             'id'          => 1,
-            'name'        => 'Gold',
+            'name'        => 'Blue',
             'my_class_id' => 1,
         ]);
 
         Section::firstOrCreate([
             'id'          => 2,
-            'name'        => 'Ruby',
+            'name'        => 'Green',
             'my_class_id' => 1,
         ]);
 

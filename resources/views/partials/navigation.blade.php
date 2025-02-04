@@ -15,7 +15,21 @@
                 <a href="{{ route('admissions') }}" class="text-white hover:text-yellow-400 transition">Admissions</a>
                 <a href="{{ route('student-life') }}" class="text-white hover:text-yellow-400 transition">Student Life</a>
                 <a href="{{ route('gallery') }}" class="text-white hover:text-yellow-400 transition">Gallery</a>
-                <a href="{{ route('alumni') }}" class="text-white hover:text-yellow-400 transition">Alumni</a>
+                
+                <!-- Get Involved Dropdown -->
+                <div class="relative group">
+                    <button class="text-white hover:text-yellow-400 transition py-2">
+                        Get Involved
+                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="{{ route('alumni') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Alumni</a>
+                        <a href="{{ route('give-back') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Give Back</a>
+                        <a href="{{ route('mentorship') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mentorship Program</a>
+                        <a href="{{ route('career-network') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Career Network</a>
+                    </div>
+                </div>
+
                 <a href="{{ route('resources') }}" class="text-white hover:text-yellow-400 transition">Resources</a>
                 <a href="{{ route('contact') }}" class="text-white hover:text-yellow-400 transition">Contact</a>
             </div>
@@ -40,7 +54,16 @@
                 <a href="{{ route('admissions') }}" class="text-white hover:text-yellow-400 transition">Admissions</a>
                 <a href="{{ route('student-life') }}" class="text-white hover:text-yellow-400 transition">Student Life</a>
                 <a href="{{ route('gallery') }}" class="text-white hover:text-yellow-400 transition">Gallery</a>
-                <a href="{{ route('alumni') }}" class="text-white hover:text-yellow-400 transition">Alumni</a>
+                
+                <!-- Mobile Get Involved Section -->
+                <div class="pl-4 space-y-2">
+                    <p class="text-yellow-400 font-semibold">Get Involved</p>
+                    <a href="{{ route('alumni') }}" class="block text-white hover:text-yellow-400 transition">Alumni</a>
+                    <a href="{{ route('give-back') }}" class="block text-white hover:text-yellow-400 transition">Give Back</a>
+                    <a href="{{ route('mentorship') }}" class="block text-white hover:text-yellow-400 transition">Mentorship Program</a>
+                    <a href="{{ route('career-network') }}" class="block text-white hover:text-yellow-400 transition">Career Network</a>
+                </div>
+
                 <a href="{{ route('resources') }}" class="text-white hover:text-yellow-400 transition">Resources</a>
                 <a href="{{ route('contact') }}" class="text-white hover:text-yellow-400 transition">Contact</a>
             </div>

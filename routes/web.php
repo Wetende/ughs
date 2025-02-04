@@ -82,6 +82,21 @@ Route::middleware(['web'])->group(function () {
         return view('alumni');
     })->name('alumni');
 
+    // Give Back route
+    Route::get('/give-back', function () {
+        return view('give-back');
+    })->name('give-back');
+
+    // Mentorship Program route
+    Route::get('/mentorship', function () {
+        return view('mentorship');
+    })->name('mentorship');
+
+    // Career Network route
+    Route::get('/career-network', function () {
+        return view('career-network');
+    })->name('career-network');
+
     // Resources route
     Route::get('/resources', function () {
         return view('resources');
@@ -131,12 +146,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard')->withoutMiddleware(['App\Http\Middleware\PreventGraduatedStudent']);
 
-    // School routes
-    Route::middleware(['auth'])->group(function () {
-        // School settings
-        Route::get('/school/settings', [SchoolController::class, 'settings'])->name('school.settings');
-        Route::post('/school/settings', [SchoolController::class, 'setSchool'])->name('school.setSchool');
-        Route::put('/school/settings', [SchoolController::class, 'update'])->name('school.update');
+    // School settings routes
+    Route::middleware(['auth', 'can:manage settings'])->group(function () {
+        Route::get('/settings', [SchoolController::class, 'settings'])->name('school.settings');
+        Route::put('/settings', [SchoolController::class, 'update'])->name('school.update');
     });
 
     //class routes

@@ -4,13 +4,14 @@
 @section('body')
 <!-- Hero Section -->
 <div class="relative bg-[#22345b] py-20">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/notice.jpg') }}');"></div>
     <div class="container mx-auto px-4">
         <div class="text-center text-white">
             <h1 class="text-5xl font-bold mb-4">Notice Board</h1>
             <p class="text-xl opacity-90 max-w-2xl mx-auto">Stay updated with the latest news, announcements, and upcoming events at Uasin Gishu High School.</p>
         </div>
     </div>
-    <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
 </div>
 
 <!-- Quick Filters -->

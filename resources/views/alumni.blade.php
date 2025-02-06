@@ -8,6 +8,7 @@
 <!-- Hero Section -->
 <div class="relative bg-[#22345b] text-white py-16">
     <div class="absolute inset-0 bg-gradient-to-r from-[#22345b] to-[#1a2844] opacity-90"></div>
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/alumni.jpg') }}');"></div>
     <div class="container mx-auto px-4 relative z-10">
         <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">UGHS Alumni Network</h1>
         <p class="text-xl text-center mb-8">Connecting Generations of Excellence</p>

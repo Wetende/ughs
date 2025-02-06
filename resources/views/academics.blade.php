@@ -5,6 +5,7 @@
 @section('content')
 <!-- Hero Section -->
 <div class="relative h-[400px] bg-gradient-to-r from-[#1b5454] to-[#023D54]">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/academics.jpg') }}');"></div>
     <div class="absolute inset-0">
         <div class="bg-black opacity-50 absolute inset-0"></div>
         <div class="container mx-auto px-4 h-full flex items-center relative z-10">

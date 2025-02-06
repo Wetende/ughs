@@ -4,16 +4,20 @@
 
 @section('content')
 <!-- Hero Section -->
-<div class="relative h-[600px] bg-white overflow-hidden">
+<div class="relative h-[500px] bg-white overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/home.jpg') }}');"></div>
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="container mx-auto px-4 h-full flex items-center relative z-10">
         <div class="max-w-2xl text-black">
-            <h1 class="text-5xl font-bold mb-6 text-blue-900">Welcome to Upper Gakoe High School</h1>
-            <p class="text-xl mb-8 text-black">Nurturing Excellence, Building Future Leaders</p>
+            <h1 class="text-5xl font-bold mb-6 text-white">Welcome to Uasin Gishu High School</h1>
+            <p class="text-xl mb-8 text-white">Only The Best</p>
             <div class="space-x-4">
-                <a href="/admissions" class="bg-[#023D54] text-white px-8 py-3 rounded-lg hover:bg-[#022b3d] transition">Apply Now</a>
-                <a href="/about" class="bg-[#9A6735] text-white px-8 py-3 rounded-lg hover:bg-[#875a2f] transition">Learn More</a>
+                <a href="/admissions" class="bg-blue-900 text-white px-8 py-3 rounded-lg hover:bg-blue-800 transition-colors duration-300">Apply Now</a>
+                <a href="/about" class="bg-yellow-400 text-white px-8 py-3 rounded-lg hover:bg-[#875a2f] transition">Learn More</a>
             </div>
+            
+            
+
         </div>
     </div>
 </div>
@@ -52,7 +56,7 @@
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-blue-900 mb-4">Our School</h2>
             <div class="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
-            <p class="text-xl text-gray-600">Nurturing Excellence, Building Future Leaders</p>
+            <p class="text-xl text-gray-600">The Best School In Nurturing Excellence and Building Future Leaders</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -98,7 +102,7 @@
                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                         <div class="text-white">
                             <h3 class="text-2xl font-bold mb-2">Only the Best</h3>
-                            <p>Our school motto drives everything we do</p>
+                            <p>The Best School In Nurturing Excellence and Building Future Leaders</p>
                         </div>
                     </div>
                 </div>
@@ -326,8 +330,8 @@
         <!-- Stats Section -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 text-white text-center">
             <div>
-                <div class="text-4xl font-bold mb-2">95%</div>
-                <div class="text-sm opacity-90">Graduation Rate</div>
+                <div class="text-4xl font-bold mb-2">99%</div>
+                <div class="text-sm opacity-90">Certification Rate</div>
             </div>
             <div>
                 <div class="text-4xl font-bold mb-2">50+</div>
@@ -338,7 +342,7 @@
                 <div class="text-sm opacity-90">Student-Teacher Ratio</div>
             </div>
             <div>
-                <div class="text-4xl font-bold mb-2">100%</div>
+                <div class="text-4xl font-bold mb-2">95%</div>
                 <div class="text-sm opacity-90">University Acceptance</div>
             </div>
         </div>
@@ -363,7 +367,7 @@
                         <img src="{{ asset('assets/images/principal.jpg') }}" alt="Principal" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <h3 class="text-xl font-bold text-blue-900 mb-2">Dr. John Doe</h3>
+                <h3 class="text-xl font-bold text-blue-900 mb-2">Dr. Murkomen</h3>
                 <p class="text-green-600 font-semibold mb-2">Principal</p>
                 <p class="text-gray-600 text-sm">Ph.D. in Educational Leadership</p>
             </div>
@@ -375,8 +379,7 @@
                         <img src="{{ asset('assets/images/deputy1.jpg') }}" alt="Deputy Principal 1" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <h3 class="text-xl font-bold text-blue-900 mb-2">Mrs. Jane Smith</h3>
-                <p class="text-green-600 font-semibold mb-2">Deputy Principal - Academics</p>
+                <h3 class="text-xl font-bold text-blue-900 mb-2">Mrs. Bush - Academics</p>
                 <p class="text-gray-600 text-sm">M.Ed. in Curriculum Development</p>
             </div>
 

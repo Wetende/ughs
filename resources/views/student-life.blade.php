@@ -5,7 +5,7 @@
 @section('content')
 <!-- Hero Section -->
 <div class="relative h-[400px]">
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/hero/student-life.jpg');">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/student-life.jpg') }}');"></div>
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="container mx-auto px-4 h-full flex items-center relative z-10">
             <div class="text-white">

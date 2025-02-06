@@ -7,7 +7,8 @@
 @include('partials.navigation')
 <!-- Hero Section -->
 <div class="relative bg-[#22345b] py-20">
-    <div class="container mx-auto px-4">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/career-network.jpg') }}');"></div>    
+<div class="container mx-auto px-4">
         <div class="text-center text-white">
             <h1 class="text-5xl font-bold mb-4">Career Development</h1>
             <p class="text-xl opacity-90 max-w-2xl mx-auto">Your journey to a successful career starts here. Explore career paths, get guidance, and discover the tools you need to make informed decisions about your future.</p>

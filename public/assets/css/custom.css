@@ -65,7 +65,7 @@ html {
 
 .mobile-menu.hidden {
     transform: translateX(-100%);
-    opacity: 0;
+    opacity: 0; 
 }
 
 .mobile-menu.visible {
@@ -76,14 +76,13 @@ html {
 /* Custom focus styles */
 .focus-ring:focus {
     outline: none;
-    ring: 2px;
-    ring-offset: 2px;
-    ring-[#023D54];
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #023D54;
 }
 
 /* Gradient text */
 .gradient-text {
     background: linear-gradient(45deg, #023D54, #9A6735);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

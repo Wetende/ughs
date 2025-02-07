@@ -1,7 +1,10 @@
-@extends('layouts.guest')
-@include('partials.navigation')
+@extends('layouts.master')
 
-@section('body')
+@section('title', 'Notice Board - Uasin Gishu High School')
+
+@section('content')
+
+
 <!-- Hero Section -->
 <div class="relative bg-[#22345b] py-20">
 <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/notice.jpg') }}');"></div>

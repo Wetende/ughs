@@ -9,7 +9,7 @@
                 </a>
                 <a href="mailto:uasingishusecsch@gmail.com" class="text-sm text-yellow-400 hover:text-yellow-300 transition flex items-center">
                     <i class="fas fa-envelope mr-2"></i>
-                    uasingishusecsch@gmail.com
+                    info@ughs.com
                 </a>
             </div>
             <div class="flex items-center">

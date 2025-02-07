@@ -367,7 +367,7 @@
                         <img src="{{ asset('assets/images/principal.jpg') }}" alt="Principal" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <h3 class="text-xl font-bold text-blue-900 mb-2">Dr. Murkomen</h3>
+                <h3 class="text-xl font-bold text-blue-900 mb-2">Dr. Hosea</h3>
                 <p class="text-green-600 font-semibold mb-2">Principal</p>
                 <p class="text-gray-600 text-sm">Ph.D. in Educational Leadership</p>
             </div>
@@ -414,7 +414,7 @@
             <div class="bg-white rounded-xl shadow-lg p-4 transform transition-all duration-300 hover:-translate-y-2">
                 <div class="relative mb-4">
                     <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-gray-300">
-                        <img src="{{ asset('assets/images/department-head.jpg') }}" alt="Department Head" class="w-full h-full object-cover">
+                        <img src="{{ asset("assets/images/department-head-{$department}.jpg") }}" alt="Department Head" class="w-full h-full object-cover">
                     </div>
                 </div>
                 <h4 class="text-lg font-bold text-blue-900 mb-1">Head of {{ $department }}</h4>
@@ -450,10 +450,11 @@
                                 </div>
                             </div>
                             <div class="pt-12 text-center">
-                                <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                                <blockquote class="relative text-gray-700 text-lg mb-6 leading-relaxed">
                                     "The school's commitment to excellence has helped shape my child's future in remarkable ways. The dedicated teachers and supportive environment make all the difference."
-                                </p>
+                                </blockquote>
                                 <h4 class="text-[#1b5454] font-bold text-xl">James Kipruto</h4>
+                                <img src="{{ asset('assets/images/james.jpg') }}" alt="James Kipruto" class="w-24 h-24 mx-auto rounded-full border-4 border-yellow-400 mb-4">
                             </div>
                         </div>
                     </div>
@@ -471,10 +472,33 @@
                                 </div>
                             </div>
                             <div class="pt-12 text-center">
-                                <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                                <blockquote class="relative text-gray-700 text-lg mb-6 leading-relaxed">
                                     "The values and education I received at UGHS have been instrumental in my career success. The school prepared me well for university and beyond."
-                                </p>
+                                </blockquote>
                                 <h4 class="text-[#1b5454] font-bold text-xl">Peter Kimani</h4>
+                                <img src="{{ asset('assets/images/peter.jpg') }}" alt="Peter Kimani" class="w-24 h-24 mx-auto rounded-full border-4 border-yellow-400 mb-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="relative">
+                            <div class="absolute -top-16 left-1/2 transform -translate-x-1/2">
+                                <div class="w-24 h-24 rounded-full border-4 border-yellow-400 overflow-hidden bg-white">
+                                    <img src="{{ asset('assets/images/student1.jpg') }}" alt="Student" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute -top-2 right-0 bg-yellow-400 text-[#1b5454] text-sm font-bold px-3 py-1 rounded-full">
+                                    Student
+                                </div>
+                            </div>
+                            <div class="pt-12 text-center">
+                                <blockquote class="relative text-gray-700 text-lg mb-6 leading-relaxed">
+                                    "The diverse range of activities and clubs has helped me discover my passions. Our teachers make learning engaging and fun every day."
+                                </blockquote>
+                                <h4 class="text-[#1b5454] font-bold text-xl">Mary Chepkemoi</h4>
+                                <img src="{{ asset('assets/images/mary.jpg') }}" alt="Mary Chepkemoi" class="w-24 h-24 mx-auto rounded-full border-4 border-yellow-400 mb-4">
                             </div>
                         </div>
                     </div>
@@ -496,6 +520,7 @@
                                     "The diverse range of activities and clubs has helped me discover my passions. Our teachers make learning engaging and fun every day."
                                 </p>
                                 <h4 class="text-[#1b5454] font-bold text-xl">Mary Chepkemoi</h4>
+                                <img src="{{ asset('assets/images/mary.jpg') }}" alt="Mary Chepkemoi" class="w-24 h-24 mx-auto rounded-full border-4 border-yellow-400 mb-4">
                             </div>
                         </div>
                     </div>
@@ -503,9 +528,9 @@
             </div>
             
             <!-- Navigation and Pagination -->
-            <div class="swiper-button-prev !text-yellow-400 !-left-2"></div>
-            <div class="swiper-button-next !text-yellow-400 !-right-2"></div>
-            <div class="swiper-pagination !-bottom-10"></div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
 </div>
@@ -513,25 +538,26 @@
 @push('styles')
 <style>
     .testimonialSwiper {
-        padding: 70px 20px 60px !important;
-    }
-    .testimonialSwiper .swiper-pagination-bullet {
-        background: #ffffff;
-        opacity: 0.7;
-        width: 10px;
-        height: 10px;
-    }
-    .testimonialSwiper .swiper-pagination-bullet-active {
-        background: #facc15;
-        opacity: 1;
-    }
-    .testimonialSwiper .swiper-button-next:after,
-    .testimonialSwiper .swiper-button-prev:after {
-        font-size: 24px;
-        font-weight: bold;
+        padding: 50px 0;
     }
     .testimonialSwiper .swiper-slide {
         height: auto;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #facc15 !important;
+        z-index: 10 !important;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 24px !important;
+    }
+    .swiper-pagination {
+        z-index: 10 !important;
+        bottom: 0 !important;
+    }
+    .swiper-pagination-bullet {
+        background: #facc15 !important;
     }
 </style>
 @endpush
@@ -539,39 +565,41 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    new Swiper(".testimonialSwiper", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        centeredSlides: true,
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        effect: "slide",
-        speed: 800,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
+    setTimeout(() => {
+        const swiper = new Swiper(".testimonialSwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
             },
-            768: {
-                slidesPerView: 2,
-                centeredSlides: false,
+            effect: "slide",
+            speed: 800,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
             },
-            1024: {
-                slidesPerView: 3,
-                centeredSlides: false,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
             },
-        },
-    });
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                    centeredSlides: false,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    centeredSlides: false,
+                },
+            },
+        });
+    }, 500);
 });
 </script>
 @endpush

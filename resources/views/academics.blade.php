@@ -136,7 +136,7 @@
         <div class="grid md:grid-cols-4 gap-8">
             <!-- KCSE Performance -->
             <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                <div class="text-4xl font-bold text-blue-900 mb-2">A-</div>
+                <div class="text-4xl font-bold text-blue-900 mb-2">B-</div>
                 <p class="text-lg text-gray-600">Average Grade</p>
                 <p class="text-sm text-gray-500">KCSE 2024</p>
             </div>
@@ -150,7 +150,7 @@
 
             <!-- National Ranking -->
             <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                <div class="text-4xl font-bold text-yellow-500 mb-2">Top 50</div>
+                <div class="text-4xl font-bold text-yellow-500 mb-2">Top 100</div>
                 <p class="text-lg text-gray-600">National Ranking</p>
                 <p class="text-sm text-gray-500">Among Day Schools</p>
             </div>

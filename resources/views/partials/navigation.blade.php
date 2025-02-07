@@ -8,34 +8,33 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex space-x-6">
-                <a href="{{ route('home') }}" class="text-white hover:text-yellow-400 transition">Home</a>
-                <a href="{{ route('about') }}" class="text-white hover:text-yellow-400 transition">About</a>
-                <a href="{{ route('academics') }}" class="text-white hover:text-yellow-400 transition">Academics</a>
-                <a href="{{ route('admissions') }}" class="text-white hover:text-yellow-400 transition">Admissions</a>
-                <a href="{{ route('student-life') }}" class="text-white hover:text-yellow-400 transition">Student Life</a>
-                <a href="{{ route('gallery') }}" class="text-white hover:text-yellow-400 transition">Gallery</a>
-                
-                <!-- Get Involved Dropdown -->
-                <div class="relative group">
-                    <button class="text-white hover:text-yellow-400 transition py-2">
-                        Get Involved
-                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                    </button>
-                    <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                        <a href="{{ route('alumni') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Alumni</a>
-                        <a href="{{ route('give-back') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Give Back</a>
-                        <a href="{{ route('mentorship') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mentorship Program</a>
-                        <a href="{{ route('career-network') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Career Network</a>
-                    </div>
-                </div>
+<div class="hidden md:flex space-x-6 items-center">
+    <a href="{{ route('home') }}" class="text-white hover:text-yellow-400 transition">Home</a>
+    <a href="{{ route('about') }}" class="text-white hover:text-yellow-400 transition">About</a>
+    <a href="{{ route('academics') }}" class="text-white hover:text-yellow-400 transition">Academics</a>
+    <a href="{{ route('admissions') }}" class="text-white hover:text-yellow-400 transition">Admissions</a>
+    <a href="{{ route('student-life') }}" class="text-white hover:text-yellow-400 transition">Student Life</a>
+    <a href="{{ route('gallery') }}" class="text-white hover:text-yellow-400 transition">Gallery</a>
 
-                <a href="{{ route('notice-board') }}" class="text-white hover:text-yellow-400 transition">Notice Board</a>
-                <a href="{{ route('resources') }}" class="text-white hover:text-yellow-400 transition">Resources</a>
-                <a href="{{ route('contact') }}" class="text-white hover:text-yellow-400 transition">Contact</a>
-            </div>
+    <!-- Get Involved Dropdown (Fix Alignment) -->
+    <div class="relative group flex items-center">
+        <a href="#" class="text-white hover:text-yellow-400 transition flex items-center">
+            Get Involved <i class="fas fa-chevron-down ml-1 text-xs"></i>
+        </a>
+        <div class="absolute left-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+            <a href="{{ route('alumni') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Alumni</a>
+            <a href="{{ route('give-back') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Give Back</a>
+            <a href="{{ route('mentorship') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mentorship Program</a>
+            <a href="{{ route('career-network') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Career Network</a>
+        </div>
+    </div>
 
-            <!-- Mobile Menu Button -->
+    <a href="{{ route('notice-board') }}" class="text-white hover:text-yellow-400 transition">Notice Board</a>
+    <a href="{{ route('resources') }}" class="text-white hover:text-yellow-400 transition">Resources</a>
+    <a href="{{ route('contact') }}" class="text-white hover:text-yellow-400 transition">Contact</a>
+</div>
+
+  <!-- Mobile Menu Button -->
             <button onclick="toggleMobileMenu()" class="md:hidden text-white">
                 <i class="fas fa-bars text-2xl"></i>
             </button>

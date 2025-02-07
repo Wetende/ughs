@@ -35,7 +35,7 @@
                 <div class="text-sm md:text-base text-gray-600">Established</div>
             </div>
             <div class="p-4">
-                <div class="text-2xl md:text-4xl font-bold text-[#1b5454] mb-2">950+</div>
+                <div class="text-2xl md:text-4xl font-bold text-[#1b5454] mb-2">1550+</div>
                 <div class="text-sm md:text-base text-gray-600">Students</div>
             </div>
             <div class="p-4">
@@ -43,7 +43,7 @@
                 <div class="text-sm md:text-base text-gray-600">Teachers</div>
             </div>
             <div class="p-4">
-                <div class="text-2xl md:text-4xl font-bold text-[#1b5454] mb-2">5</div>
+                <div class="text-2xl md:text-4xl font-bold text-[#1b5454] mb-2">7</div>
                 <div class="text-sm md:text-base text-gray-600">Streams</div>
             </div>
         </div>
@@ -156,7 +156,7 @@
                         <div class="bg-white p-6 rounded-lg shadow-lg">
                             <div class="bg-[#1b5454] text-white px-4 py-2 rounded-lg inline-block mb-4">Present</div>
                             <h3 class="text-xl font-bold text-[#1b5454] mb-2">Current Status</h3>
-                            <p class="text-gray-600">Five streams with over 950 students and consistent academic excellence</p>
+                            <p class="text-gray-600">Seven streams with over 1500 students and consistent academic excellence</p>
                         </div>
                     </div>
 
@@ -208,7 +208,7 @@
                             </div>
                             <div class="mt-4 bg-white p-6 rounded-lg shadow-lg">
                                 <h3 class="text-xl font-bold text-[#1b5454] mb-2">Current Status</h3>
-                                <p class="text-gray-600">Five streams with over 950 students and consistent academic excellence</p>
+                                <p class="text-gray-600">Seven streams with over 1550 students and consistent academic excellence</p>
                             </div>
                         </div>
                     </div>

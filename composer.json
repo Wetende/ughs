@@ -54,18 +54,26 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
+<<<<<<< HEAD
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models --nowrite"
+=======
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+>>>>>>> aad78285dd8ee5944cea62468f5597a44c0ab775
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+<<<<<<< HEAD
         ],
         "lint": "phpstan analyse",
         "test": "phpunit"
+=======
+        ]
+>>>>>>> aad78285dd8ee5944cea62468f5597a44c0ab775
     },
     "extra": {
         "laravel": {

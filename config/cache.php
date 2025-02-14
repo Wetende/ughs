@@ -15,11 +15,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'default' => env('CACHE_DRIVER', 'redis'),
-=======
     'default' => env('CACHE_DRIVER', 'file'),
->>>>>>> aad78285dd8ee5944cea62468f5597a44c0ab775
 
     /*
     |--------------------------------------------------------------------------

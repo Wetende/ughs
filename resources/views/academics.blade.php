@@ -4,17 +4,19 @@
 
 @section('content')
 <!-- Hero Section -->
-<div class="relative h-[400px] bg-gradient-to-r from-[#1b5454] to-[#023D54]">
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/academics.jpg') }}');"></div>
-    <div class="absolute inset-0">
-        <div class="bg-black opacity-50 absolute inset-0"></div>
-        <div class="container mx-auto px-4 h-full flex items-center relative z-10">
-            <div class="text-white max-w-2xl">
-                <h1 class="text-4xl font-bold mb-4">Academic Excellence</h1>
-                <p class="text-xl mb-8">Nurturing minds, fostering innovation, and building future leaders through comprehensive education.</p>
-                <div class="space-x-4">
-                    <a href="#curriculum" class="bg-yellow-500 text-white px-8 py-3 rounded-lg hover:bg-yellow-600 transition">Our Curriculum</a>
-                    <a href="#achievements" class="bg-white text-[#1b5454] px-8 py-3 rounded-lg hover:bg-gray-100 transition">Achievements</a>
+<div class="relative w-full min-h-[60vh] md:min-h-[70vh] bg-white">
+    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700" 
+         style="background-image: url('{{ asset('assets/images/academics.jpg') }}');">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1b5454]/90 to-[#023D54]/90"></div>
+    </div>
+    <div class="relative h-full w-full flex items-center z-10">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-white max-w-4xl">
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Academic Excellence</h1>
+                <p class="text-lg md:text-xl lg:text-2xl mb-8">Nurturing minds, fostering innovation, and building future leaders through comprehensive education.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#curriculum" class="inline-flex items-center px-6 py-3 bg-yellow-400 text-[#22345b] rounded-lg hover:bg-yellow-300 transition-all duration-300">Our Curriculum</a>
+                    <a href="#achievements" class="inline-flex items-center px-6 py-3 bg-white text-[#1b5454] rounded-lg hover:bg-gray-100 transition-all duration-300">Achievements</a>
                 </div>
             </div>
         </div>

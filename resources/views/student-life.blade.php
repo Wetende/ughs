@@ -4,13 +4,16 @@
 
 @section('content')
 <!-- Hero Section -->
-<div class="relative h-[400px]">
-<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/student-life.jpg') }}');"></div>
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="container mx-auto px-4 h-full flex items-center relative z-10">
-            <div class="text-white">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Student Life at UGHS</h1>
-                <p class="text-xl md:text-2xl">Discover the vibrant community and activities that make our school special</p>
+<div class="relative w-full min-h-[60vh] md:min-h-[70vh] bg-white">
+    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700" 
+         style="background-image: url('{{ asset('assets/images/student-life.jpg') }}');">
+        <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+    <div class="relative h-full w-full flex items-center z-10">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-white max-w-4xl mx-auto lg:mx-0">
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Student Life at UGHS</h1>
+                <p class="text-lg md:text-xl lg:text-2xl">Discover the vibrant community and activities that make our school special</p>
             </div>
         </div>
     </div>

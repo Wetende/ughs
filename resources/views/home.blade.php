@@ -4,23 +4,295 @@
 
 @section('content')
 <!-- Hero Section -->
-<div class="relative h-[500px] bg-white overflow-hidden">
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/home.jpg') }}');"></div>
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="container mx-auto px-4 h-full flex items-center relative z-10">
-        <div class="max-w-2xl text-black">
-            <h1 class="text-5xl font-bold mb-6 text-white">Welcome to Uasin Gishu High School</h1>
-            <p class="text-xl mb-8 text-white">Only The Best</p>
-            <div class="space-x-4">
-                <a href="/admissions" class="bg-blue-900 text-white px-8 py-3 rounded-lg hover:bg-blue-800 transition-colors duration-300">Apply Now</a>
-                <a href="/about" class="bg-yellow-400 text-white px-8 py-3 rounded-lg hover:bg-[#875a2f] transition">Learn More</a>
+<div class="relative h-[600px] md:h-[700px] lg:h-[800px] w-full bg-white overflow-hidden">
+    <!-- Slider container -->
+    <div class="swiper hero-slider h-full w-full">
+        <div class="swiper-wrapper">
+            <!-- Slide 1: Welcome -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-cover bg-center transition-all duration-700" 
+                     style="background-image: url('{{ asset('assets/images/school-entrance.jpg') }}');">
+                    <div class="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                    <div class="text-white max-w-2xl mx-auto lg:mx-0">
+                        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 animate-fadeIn">Welcome to Uasin Gishu High School</h1>
+                        <p class="text-lg md:text-xl mb-2 animate-slideUp">Only the Best</p>
+                        <p class="text-base md:text-lg mb-8 animate-slideUp">📍 Eldoret, Kenya</p>
+                        <a href="/about" class="inline-flex items-center px-4 md:px-6 py-2 md:py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-all duration-300 transform hover:scale-105">
+                            Learn More
+                            <svg class="w-4 h-4 md:w-5 md:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-            
-            
 
+            <!-- Slide 2: Vision & Mission -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/students-learning.jpg') }}');">
+                    <div class="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                    <div class="text-white max-w-2xl">
+                        <h2 class="text-4xl font-bold mb-6">Our Vision & Mission</h2>
+                        <div class="mb-4">
+                            <h3 class="text-2xl font-semibold mb-2">Vision</h3>
+                            <p class="text-xl">To be a model mixed day school.</p>
+                        </div>
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-2">Mission</h3>
+                            <p class="text-xl">To bring up open-minded, independent, self-motivated individuals through quality education.</p>
+                        </div>
+                        <a href="/about#vision" class="inline-flex items-center px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-600 transition-colors">
+                            Read More
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Student Life -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/student-life.jpg') }}');">
+                    <div class="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                    <div class="text-white max-w-2xl">
+                        <h2 class="text-4xl font-bold mb-6">Vibrant Student Life</h2>
+                        <p class="text-xl mb-8">Join our diverse clubs and societies, participate in sports, and develop your talents through various extracurricular activities.</p>
+                        <a href="/student-life" class="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                            Explore Activities
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Academic Excellence -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/academics.jpg') }}');">
+                    <div class="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                    <div class="text-white max-w-2xl">
+                        <h2 class="text-4xl font-bold mb-6">Academic Excellence</h2>
+                        <p class="text-xl mb-4">We offer a comprehensive curriculum with:</p>
+                        <ul class="text-lg mb-8 space-y-2">
+                            <li>• Modern Science Laboratories</li>
+                            <li>• Well-equipped Computer Labs</li>
+                            <li>• Experienced Teaching Staff</li>
+                            <li>• Quality Learning Resources</li>
+                        </ul>
+                        <a href="/academics" class="inline-flex items-center px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-600 transition-colors">
+                            View Programs
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Admissions -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/admission.jpg') }}');">
+                    <div class="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                    <div class="text-white max-w-2xl">
+                        <h2 class="text-4xl font-bold mb-6">Join Our Community</h2>
+                        <p class="text-xl mb-8">Take the first step towards excellence. Applications are now open for new students.</p>
+                        <div class="space-x-4">
+                            <a href="/admissions" class="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                                Apply Now
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
+                            <a href="/fees" class="inline-flex items-center px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-600 transition-colors">
+                                Fee Structure
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- Slide 6: News & Announcements -->
+        <div class="swiper-slide relative">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('assets/images/noticeboard.jpg') }}');">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+            </div>
+            <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+                <div class="text-white max-w-2xl">
+                    <h2 class="text-4xl font-bold mb-6">Stay Updated</h2>
+                    <p class="text-xl mb-4">Latest School News & Updates</p>
+                    <ul class="text-lg mb-8 space-y-2">
+                        <li>📝 Exam Schedules</li>
+                        <li>🎓 Academic Results</li>
+                        <li>🏆 Competitions</li>
+                        <li>🚀 Events</li>
+                    </ul>
+                    <a href="/news" class="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                        Read News
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Custom Navigation -->
+        <div class="swiper-button-next custom-next hidden md:flex"></div>
+        <div class="swiper-button-prev custom-prev hidden md:flex"></div>
+        
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
     </div>
 </div>
+
+@push('styles')
+<style>
+    .hero-slider {
+        position: relative;
+        width: 100vw;
+    }
+    .swiper-slide {
+        position: relative;
+        overflow: hidden;
+    }
+    .swiper-slide-active .animate-fadeIn {
+        animation: fadeIn 1s ease-out forwards;
+    }
+    .swiper-slide-active .animate-slideUp {
+        animation: slideUp 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .custom-next,
+    .custom-prev {
+        background-color: rgba(255, 255, 255, 0.9);
+        width: 40px !important;
+        height: 40px !important;
+        @media (min-width: 768px) {
+            width: 50px !important;
+            height: 50px !important;
+        }
+        border-radius: 50%;
+        color: #1a365d !important;
+        transition: all 0.3s ease;
+    }
+    .custom-next:hover,
+    .custom-prev:hover {
+        background-color: #1a365d;
+        color: white !important;
+        transform: scale(1.1);
+    }
+    .custom-next::after,
+    .custom-prev::after {
+        font-size: 16px !important;
+        @media (min-width: 768px) {
+            font-size: 20px !important;
+        }
+    }
+    .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        @media (min-width: 768px) {
+            width: 12px;
+            height: 12px;
+        }
+        background: white;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+    }
+    .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: #1a365d;
+        transform: scale(1.2);
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const swiper = new Swiper('.hero-slider', {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        speed: 1000,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.custom-next',
+            prevEl: '.custom-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        on: {
+            slideChangeTransitionStart: function() {
+                const activeSlide = this.slides[this.activeIndex];
+                const elements = activeSlide.querySelectorAll('.animate-fadeIn, .animate-slideUp');
+                elements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.animation = 'none';
+                });
+            },
+            slideChangeTransitionEnd: function() {
+                const activeSlide = this.slides[this.activeIndex];
+                const elements = activeSlide.querySelectorAll('.animate-fadeIn, .animate-slideUp');
+                elements.forEach(el => {
+                    el.style.animation = '';
+                });
+            }
+        },
+        breakpoints: {
+            // Mobile
+            320: {
+                slidesPerView: 1
+            },
+            // Tablet
+            768: {
+                slidesPerView: 1
+            },
+            // Desktop
+            1024: {
+                slidesPerView: 1
+            }
+        }
+    });
+});
+</script>
+@endpush
 
 <!-- Features Section -->
 <div class="py-16 bg-white">

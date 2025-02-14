@@ -6,18 +6,28 @@
 @include('partials.navigation')
 
 <!-- Hero Section -->
-<div class="relative h-[60vh] bg-cover bg-center" style="background-image: url('{{ asset('assets/images/mentorship.jpg') }}');">
-    <div class="absolute inset-0 bg-gradient-to-r from-[#22345b]/90 to-[#22345b]/80"></div>
-    <div class="relative container mx-auto px-4 h-full flex flex-col justify-center text-white">
-        <h1 class="text-5xl md:text-6xl font-bold mb-4">Connect with Our Alumni Mentors</h1>
-        <p class="text-xl md:text-2xl mb-8 max-w-2xl">Building bridges between experience and aspiration at UGHS</p>
-        <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#become-mentor" class="bg-yellow-400 text-[#22345b] px-8 py-4 rounded-full text-xl font-bold hover:bg-yellow-300 transition inline-block w-fit">
-                Become a Mentor
-            </a>
-            <a href="#find-mentor" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-white/30 transition inline-block w-fit">
-                Find a Mentor
-            </a>
+<div class="relative w-full min-h-[60vh] md:min-h-[70vh] bg-white">
+    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700" 
+         style="background-image: url('{{ asset('assets/images/mentorship.jpg') }}');">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#22345b]/90 to-[#22345b]/80"></div>
+    </div>
+    <div class="relative h-full w-full flex items-center z-10">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-white max-w-4xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Connect with Our Alumni Mentors</h1>
+                <p class="text-lg md:text-xl lg:text-2xl mb-8">Building bridges between experience and aspiration at UGHS</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#become-mentor" class="inline-flex items-center px-6 py-3 bg-yellow-400 text-[#22345b] rounded-lg hover:bg-yellow-300 transition-all duration-300 font-bold">
+                        Become a Mentor
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    <a href="#find-mentor" class="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition-all duration-300 font-bold">
+                        Find a Mentor
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

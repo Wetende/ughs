@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -35,31 +36,58 @@ return new class extends Migration
         Schema::table('syllabi', function (Blueprint $table) {
             // First drop the foreign key constraint
             $table->dropForeign(['semester_id']);
-            // Then rename the column
-            $table->renameColumn('semester_id', 'term_id');
+        });
+        
+        // Add new column and copy data
+        DB::statement('ALTER TABLE syllabi ADD COLUMN term_id BIGINT UNSIGNED AFTER semester_id');
+        DB::statement('UPDATE syllabi SET term_id = semester_id');
+        DB::statement('ALTER TABLE syllabi DROP COLUMN semester_id');
+        
+        Schema::table('syllabi', function (Blueprint $table) {
             // Add the new foreign key constraint
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // Handle timetables table
         Schema::table('timetables', function (Blueprint $table) {
             $table->dropForeign(['semester_id']);
-            $table->renameColumn('semester_id', 'term_id');
+        });
+        
+        DB::statement('ALTER TABLE timetables ADD COLUMN term_id BIGINT UNSIGNED AFTER semester_id');
+        DB::statement('UPDATE timetables SET term_id = semester_id');
+        DB::statement('ALTER TABLE timetables DROP COLUMN semester_id');
+        
+        Schema::table('timetables', function (Blueprint $table) {
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // Handle exams table
         Schema::table('exams', function (Blueprint $table) {
             $table->dropForeign(['semester_id']);
-            $table->renameColumn('semester_id', 'term_id');
+        });
+        
+        DB::statement('ALTER TABLE exams ADD COLUMN term_id BIGINT UNSIGNED AFTER semester_id');
+        DB::statement('UPDATE exams SET term_id = semester_id');
+        DB::statement('ALTER TABLE exams DROP COLUMN semester_id');
+        
+        Schema::table('exams', function (Blueprint $table) {
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // Handle schools table
         Schema::table('schools', function (Blueprint $table) {
-            $table->dropForeign(['semester_id']);
-            $table->renameColumn('semester_id', 'term_id');
-            $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade')->onUpdate('cascade');
+            $table->dropForeign('schools_semester_id_foreign');
+        });
+        
+        DB::statement('ALTER TABLE schools ADD COLUMN term_id BIGINT UNSIGNED AFTER semester_id');
+        DB::statement('UPDATE schools SET term_id = semester_id');
+        DB::statement('ALTER TABLE schools DROP COLUMN semester_id');
+        
+        Schema::table('schools', function (Blueprint $table) {
+            $table->foreign('term_id')->references('id')->on('terms')->onDelete('set null')->onUpdate('set null');
         });
 
-        // 4. Finally drop the semesters table
+        // 4. Drop the semesters table
         Schema::dropIfExists('semesters');
     }
 
@@ -88,32 +116,60 @@ return new class extends Migration
             ]);
         });
 
-        // 3. Update foreign keys in related tables back to semester_id
+        // 3. Revert foreign keys in related tables back to semester_id
+        // Handle syllabi table
         Schema::table('syllabi', function (Blueprint $table) {
             $table->dropForeign(['term_id']);
-            $table->renameColumn('term_id', 'semester_id');
+        });
+        
+        DB::statement('ALTER TABLE syllabi ADD COLUMN semester_id BIGINT UNSIGNED AFTER term_id');
+        DB::statement('UPDATE syllabi SET semester_id = term_id');
+        DB::statement('ALTER TABLE syllabi DROP COLUMN term_id');
+        
+        Schema::table('syllabi', function (Blueprint $table) {
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // Handle timetables table
         Schema::table('timetables', function (Blueprint $table) {
             $table->dropForeign(['term_id']);
-            $table->renameColumn('term_id', 'semester_id');
+        });
+        
+        DB::statement('ALTER TABLE timetables ADD COLUMN semester_id BIGINT UNSIGNED AFTER term_id');
+        DB::statement('UPDATE timetables SET semester_id = term_id');
+        DB::statement('ALTER TABLE timetables DROP COLUMN term_id');
+        
+        Schema::table('timetables', function (Blueprint $table) {
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // Handle exams table
         Schema::table('exams', function (Blueprint $table) {
             $table->dropForeign(['term_id']);
-            $table->renameColumn('term_id', 'semester_id');
+        });
+        
+        DB::statement('ALTER TABLE exams ADD COLUMN semester_id BIGINT UNSIGNED AFTER term_id');
+        DB::statement('UPDATE exams SET semester_id = term_id');
+        DB::statement('ALTER TABLE exams DROP COLUMN term_id');
+        
+        Schema::table('exams', function (Blueprint $table) {
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade')->onUpdate('cascade');
         });
 
+        // Handle schools table
         Schema::table('schools', function (Blueprint $table) {
             $table->dropForeign(['term_id']);
-            $table->renameColumn('term_id', 'semester_id');
-            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade')->onUpdate('cascade');
+        });
+        
+        DB::statement('ALTER TABLE schools ADD COLUMN semester_id BIGINT UNSIGNED AFTER term_id');
+        DB::statement('UPDATE schools SET semester_id = term_id');
+        DB::statement('ALTER TABLE schools DROP COLUMN term_id');
+        
+        Schema::table('schools', function (Blueprint $table) {
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('set null')->onUpdate('set null');
         });
 
-        // 4. Finally drop the terms table
+        // 4. Drop the terms table
         Schema::dropIfExists('terms');
     }
 };

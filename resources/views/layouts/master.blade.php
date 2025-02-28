@@ -15,6 +15,11 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://code.jquery.com">
     
+    <!-- DNS prefetch for performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
     <!-- Fonts - Asynchronous loading with font-display: swap -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" crossorigin>
     <noscript>
@@ -36,119 +41,38 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com" defer></script>
     
-    <!-- Critical CSS - Inlined for faster rendering -->
+    <!-- Critical CSS - Minified for faster rendering -->
     <style>
-        /* Base styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.5;
-        }
-        
-        /* Navigation styles */
-        .bg-\[\#22345b\] {
-            background-color: #22345b;
-        }
-        
-        /* Hero section styles */
-        .swiper-container {
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* Swiper navigation */
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: white !important;
-        }
-        .swiper-pagination-bullet {
-            background: white !important;
-        }
-        .swiper-pagination-bullet-active {
-            background: #1b5454 !important;
-        }
-        
-        /* Layout utilities */
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            margin-top: 0;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        
-        /* Font display strategy for custom fonts */
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap; /* Ensures text remains visible during font loading */
-            src: local('Inter Regular'), local('Inter-Regular');
-        }
-        
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 700;
-            font-display: swap;
-            src: local('Inter Bold'), local('Inter-Bold');
-        }
-        
-        /* Accessibility enhancements */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-        
-        /* High contrast text utilities */
-        .text-high-contrast {
-            color: #ffffff !important; /* Ensures 4.5:1 contrast ratio on dark backgrounds */
-        }
-        
-        .text-high-contrast-dark {
-            color: #121212 !important; /* Ensures 4.5:1 contrast ratio on light backgrounds */
-        }
-        
-        /* Focus styles */
-        .focus-visible:focus {
-            outline: 2px solid #ffcc00;
-            outline-offset: 2px;
-        }
-        
-        /* Skip to content link - accessibility feature */
-        .skip-to-content {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: #ffcc00;
-            color: #000;
-            padding: 8px;
-            z-index: 100;
-            transition: top 0.2s ease;
-        }
-        
-        .skip-to-content:focus {
-            top: 0;
-        }
+body{font-family:'Inter',sans-serif;margin:0;padding:0;color:#333;line-height:1.5}
+.bg-\[\#22345b\]{background-color:#22345b}
+.swiper-container{width:100%;height:100%}
+.swiper-button-next,.swiper-button-prev{color:white!important}
+.swiper-pagination-bullet{background:white!important}
+.swiper-pagination-bullet-active{background:#1b5454!important}
+.container{width:100%;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
+h1,h2,h3,h4,h5,h6{margin-top:0;font-weight:700;line-height:1.2}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:local('Inter Regular'),local('Inter-Regular')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:local('Inter Bold'),local('Inter-Bold')}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+.text-high-contrast{color:#ffffff!important}
+.text-high-contrast-dark{color:#121212!important}
+.focus-visible:focus{outline:2px solid #ffcc00;outline-offset:2px}
+.skip-to-content{position:absolute;top:-40px;left:0;background:#ffcc00;color:#000;padding:8px;z-index:100;transition:top 0.2s ease}
+.skip-to-content:focus{top:0}
     </style>
     
     @yield('styles')
+    
+    <!-- Page metadata for SEO -->
+    <meta name="description" content="@yield('meta_description', 'Uasin Gishu High School - Providing quality education and nurturing future leaders.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'Uasin Gishu High School, education, high school, Kenya, academics')">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="@yield('title', 'Uasin Gishu High School')">
+    <meta property="og:description" content="@yield('meta_description', 'Uasin Gishu High School - Providing quality education and nurturing future leaders.')">
+    <meta property="og:image" content="@yield('og_image', asset('assets/images/logo.png'))">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
 </head>
 <body class="flex flex-col min-h-screen">
     <!-- Skip to content link for keyboard users -->
@@ -313,6 +237,28 @@
                     }
                 });
             });
+            
+            // Performance optimization - Lazy load images as they enter viewport
+            if ('IntersectionObserver' in window) {
+                const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+                            if (src) {
+                                img.src = src;
+                                img.removeAttribute('data-src');
+                            }
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
         });
     </script>
 </body>

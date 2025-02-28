@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center h-20">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="flex items-center">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="UGHS Logo" class="h-16">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="UGHS Logo" class="h-16" width="64" height="64" loading="eager">
             </a>
 
             <!-- Desktop Navigation -->
@@ -35,7 +35,7 @@
 </div>
 
   <!-- Mobile Menu Button -->
-            <button onclick="toggleMobileMenu()" class="md:hidden text-white">
+            <button class="md:hidden text-white mobile-menu-toggle" aria-label="Toggle mobile menu">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
@@ -44,7 +44,7 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="fixed top-0 right-0 w-64 h-full bg-[#22345b] transform translate-x-full transition-transform duration-200 ease-in-out z-50 md:hidden">
         <div class="p-6">
-            <button onclick="toggleMobileMenu()" class="absolute top-4 right-4 text-white">
+            <button class="absolute top-4 right-4 text-white mobile-menu-toggle" aria-label="Close mobile menu">
                 <i class="fas fa-times text-2xl"></i>
             </button>
             <div class="flex flex-col space-y-4 mt-8">

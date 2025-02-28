@@ -18,15 +18,11 @@ class SchoolSeeder extends Seeder
         School::updateOrCreate(
             ['id' => 1],
             [
-                'name'     => 'Default School',
-                'address'  => 'School of Computing',
+                'name'     => 'Uasin Gishu High School',
+                'address'  => 'Eldoret, Kenya',
                 'code'     => Str::Random(10),
-                'initials' => 'DSI',
+                'initials' => 'UGHS',
             ]
         );
-
-        School::factory()
-                ->count(3)
-                ->create();
     }
 }

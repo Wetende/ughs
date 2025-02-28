@@ -15,8 +15,10 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
+        "opcodesio/log-viewer": "^3.15",
         "predis/predis": "^2.3",
         "spatie/laravel-ignition": "^2.0",
+        "spatie/laravel-model-status": "^1.18",
         "spatie/laravel-permission": "^6.15"
     },
     "require-dev": {

@@ -51,7 +51,7 @@ class NoticeTest extends TestCase
 
     public function test_unauthorized_user_can_not_create_notice()
     {
-        $this->unauthorized_user(['create notice'])
+        $this->unauthorized_user()
             ->post('dashboard/notices', [
                 'title'      => 'test',
                 'content'    => 'test',

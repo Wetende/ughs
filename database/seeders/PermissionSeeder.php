@@ -472,6 +472,18 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate([
             'name' => 'menu-fee',
         ]);
+        
+        // New permissions for notice approval workflow
+        Permission::firstOrCreate([
+            'name' => 'approve-notices',
+        ]);
+        Permission::firstOrCreate([
+            'name' => 'create-featured-notices',
+        ]);
+        Permission::firstOrCreate([
+            'name' => 'send-notice-notifications',
+        ]);
+        
         /**
          * assign permissions to roles.
          */
@@ -598,6 +610,9 @@ class PermissionSeeder extends Seeder
             'read fee invoice record',
             'update fee invoice record',
             'delete fee invoice record',
+            'approve-notices',
+            'create-featured-notices',
+            'send-notice-notifications',
         ]);
 
         //assign permissions to teacher

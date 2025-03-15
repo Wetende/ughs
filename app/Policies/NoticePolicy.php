@@ -61,6 +61,36 @@ class NoticePolicy
     }
 
     /**
+     * Determine whether the user can approve or reject notices.
+     */
+    public function approve(User $user, Notice $notice)
+    {
+        if ($user->can('approve-notices') && $user->school_id == $notice->school_id) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine whether the user can create featured notices.
+     */
+    public function createFeatured(User $user)
+    {
+        if ($user->can('create-featured-notices')) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine whether the user can send notice notifications.
+     */
+    public function sendNotifications(User $user, Notice $notice)
+    {
+        if ($user->can('send-notice-notifications') && $user->school_id == $notice->school_id) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can restore the model.
      */
     public function restore(User $user, Notice $notice)

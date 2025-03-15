@@ -28,6 +28,7 @@ use App\Http\Controllers\TermController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\TimetableTimeSlotController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\NoticeApprovalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,9 +104,27 @@ Route::middleware(['web'])->group(function () {
     })->name('resources');
 
     // Notice Board route
-    Route::get('/notice-board', function () {
-        return view('notice-board');
-    })->name('notice-board');
+    Route::get('/notice-board', [NoticeController::class, 'publicIndex'])->name('notice-board');
+    Route::get('/notice-board/category/{category}', [NoticeController::class, 'publicIndex'])->name('notice-board.category');
+    Route::get('/notice-board/notice/{notice}', [NoticeController::class, 'publicShow'])->name('notice-board.show');
+    Route::get('/notice-debug/{id}', [NoticeController::class, 'debug'])->name('notice.debug');
+    Route::get('/notice-test/{id}', function($id) {
+        $notice = \App\Models\Notice::find($id);
+        if (!$notice) {
+            return 'Notice not found';
+        }
+        return [
+            'id' => $notice->id,
+            'title' => $notice->title,
+            'content' => $notice->content,
+            'start_date' => $notice->start_date,
+            'stop_date' => $notice->stop_date,
+            'active' => $notice->active,
+            'approval_status' => $notice->approval_status,
+            'now_lt_start_date' => now()->lt($notice->start_date),
+            'now_gt_stop_date' => now()->gt($notice->stop_date),
+        ];
+    })->name('notice.test');
 
     // Authentication Routes
     Route::middleware(['web'])->group(function () {
@@ -287,5 +306,13 @@ Route::middleware([
 
         //notice routes
         Route::resource('notices', NoticeController::class);
+    });
+
+    // Notice approval routes
+    Route::middleware(['auth', 'can:approve-notices'])->group(function () {
+        Route::get('/dashboard/notices/pending', [NoticeApprovalController::class, 'index'])->name('notices.pending');
+        Route::get('/dashboard/notices/{notice}/approval', [NoticeApprovalController::class, 'show'])->name('notices.approval');
+        Route::post('/dashboard/notices/{notice}/approve', [NoticeApprovalController::class, 'approve'])->name('notices.approve');
+        Route::post('/dashboard/notices/{notice}/reject', [NoticeApprovalController::class, 'reject'])->name('notices.reject');
     });
 });

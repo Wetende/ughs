@@ -16,6 +16,9 @@
                 @can('read section')
                     <x-info-box title="{{$sections}}" text="Sections" url="{{route('sections.index')}}" url-text="View sections" colour="bg-lime-600"  text-colour="text-white" />
                 @endcan
+                @can('read notice')
+                    <x-info-box title="{{$notices}}" text="Notices" icon="fas fa-bell text-dark" theme="yellow" url="{{route('notices.index')}}" url-text="View notices" colour="bg-[#e2d000]"  text-colour="text-white"/>
+                @endcan
                 @can('read student')
                     <x-info-box title="{{$students}}" text="Students (active)" icon=" text-dark" theme="yellow" url="{{route('students.index')}}" url-text="View students" colour="bg-blue-700"  text-colour="text-white"/>
                 @endcan

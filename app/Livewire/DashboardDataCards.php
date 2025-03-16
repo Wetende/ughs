@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\School;
 use App\Models\User;
+use App\Models\Notice;
 use App\Services\Section\SectionService;
 use Livewire\Component;
 
@@ -20,6 +21,8 @@ class DashboardDataCards extends Component
     public $teachers;
 
     public $parents;
+    
+    public $notices;
 
     public function mount(SectionService $sectionService)
     {
@@ -30,6 +33,7 @@ class DashboardDataCards extends Component
         $this->students = User::inSchool()->students()->activeStudents()->count();
         $this->teachers = User::inSchool()->role('teacher')->count();
         $this->parents = User::inSchool()->role('parent')->count();
+        $this->notices = Notice::where('approval_status', 'approved')->count();
     }
 
     public function render()

@@ -34,9 +34,20 @@ class AcademicYear extends Model
         return $this->belongsTo(School::class);
     }
 
+    /**
+     * @deprecated Use terms() instead
+     */
     public function semesters(): HasMany
     {
         return $this->hasMany(Semester::class);
+    }
+    
+    /**
+     * Get all terms for the academic year.
+     */
+    public function terms(): HasMany
+    {
+        return $this->hasMany(Term::class);
     }
 
     /**
@@ -44,7 +55,7 @@ class AcademicYear extends Model
      */
     public function exams(): HasManyThrough
     {
-        return $this->hasManyThrough(Exam::class, Semester::class, 'academic_year_id', 'semester_id', 'id', 'id');
+        return $this->hasManyThrough(Exam::class, Term::class, 'academic_year_id', 'term_id', 'id', 'id');
     }
 
     /**

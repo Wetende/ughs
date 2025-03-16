@@ -12,7 +12,23 @@ class Term extends Model
 
     protected $table = 'terms';
 
-    protected $fillable = ['name', 'school_id', 'academic_year_id'];
+    protected $fillable = ['name', 'school_id', 'academic_year_id', 'check_result'];
+    
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function ($term) {
+            if (empty($term->academic_year_id)) {
+                throw new \InvalidArgumentException('Academic year ID cannot be null when creating a term');
+            }
+            
+            if (empty($term->school_id)) {
+                throw new \InvalidArgumentException('School ID cannot be null when creating a term');
+            }
+        });
+    }
 
     public function academicYear()
     {

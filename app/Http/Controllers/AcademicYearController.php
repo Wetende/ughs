@@ -7,6 +7,7 @@ use App\Models\AcademicYear;
 use App\Services\AcademicYear\AcademicYearService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AcademicYearController extends Controller
@@ -86,13 +87,40 @@ class AcademicYearController extends Controller
     /**
      * Set academic year.
      */
-    public function setAcademicYear(request $request): RedirectResponse
+    public function setAcademicYear(Request $request): RedirectResponse
     {
         $this->authorize('setAcademicYear', AcademicYear::class);
-        $academicYear = $request->academic_year_id;
-
-        $this->academicYear->setAcademicYear($academicYear);
-
-        return back()->with('success', 'Academic year set for '.auth()->user()->school->name.' successfully');
+        
+        // Validate the request
+        $validated = $request->validate([
+            'academic_year_id' => 'required|exists:academic_years,id',
+        ], [
+            'academic_year_id.required' => 'Please select an academic year',
+            'academic_year_id.exists' => 'The selected academic year is invalid',
+        ]);
+        
+        try {
+            // Log the request data for debugging
+            \Illuminate\Support\Facades\Log::info('Setting academic year', [
+                'user_id' => auth()->id(),
+                'academic_year_id' => $validated['academic_year_id'],
+                'request_data' => $request->all()
+            ]);
+            
+            $academicYear = $validated['academic_year_id'];
+            $this->academicYear->setAcademicYear($academicYear);
+            
+            return back()->with('success', 'Academic year set for '.auth()->user()->school->name.' successfully');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error setting academic year', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'academic_year_id' => $request->academic_year_id,
+                'request_data' => $request->all()
+            ]);
+            
+            return back()->with('error', 'Failed to set academic year: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 }

@@ -29,7 +29,11 @@ class NoticeController extends Controller
      */
     public function index(): View
     {
-        return view('pages.notice.index');
+        // Check if user is a student or parent, if so, they can only view notices
+        $userRole = auth()->user()->roles->pluck('name')->first();
+        $canManageNotices = !in_array($userRole, ['student', 'parent']);
+        
+        return view('pages.notice.index', compact('canManageNotices'));
     }
 
     /**
@@ -37,6 +41,12 @@ class NoticeController extends Controller
      */
     public function create(): View
     {
+        // Additional check to prevent students and parents from creating notices
+        $userRole = auth()->user()->roles->pluck('name')->first();
+        if (in_array($userRole, ['student', 'parent'])) {
+            abort(403, 'You are not authorized to create notices.');
+        }
+        
         return view('pages.notice.create');
     }
 

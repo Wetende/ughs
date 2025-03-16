@@ -16,9 +16,9 @@
             <div class="col-md-6">
                 <x-input type="date" id="date" name="stop_date" label="Stop date *" required value="{{old('stop_date')}}"/>
             </div>
-            <x-select id="select" name="semester_id" label="Select Term *"  wire:loading.attr="disabled" wire:target="semester" >
-                @foreach ($semesters as $item)
-                    <option value="{{$item['id']}}" @selected(auth()->user()->school->semester->id == $item['id'])>{{$item['name']}}</option>
+            <x-select id="select" name="term_id" label="Select Term *"  wire:loading.attr="disabled" wire:target="term" >
+                @foreach ($terms as $item)
+                    <option value="{{$item['id']}}" @selected(auth()->user()->school->term->id == $item['id'])>{{$item['name']}}</option>
                 @endforeach
             </x-select>
             @csrf

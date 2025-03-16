@@ -16,8 +16,14 @@ class EnsureAcademicYearIsSet
      */
     public function handle(Request $request, Closure $next)
     {
+        // Skip the check for academic-years and notices routes to prevent redirect loops
+        if ($request->routeIs('academic-years.*') || $request->routeIs('notices.*')) {
+            return $next($request);
+        }
+        
         if (!$request->user()->school->academicYear) {
-            return redirect()->route('academic-years.index');
+            return redirect()->route('academic-years.index')
+                ->with('warning', 'Please set an academic year before proceeding.');
         }
 
         return $next($request);

@@ -25,7 +25,7 @@
                 <label for="remember">Remember Me</label>
             </div>
 
-            <x-button class="my-3 px-6 md:px-10 w-full">
+            <x-button type="submit" class="my-3 px-6 md:px-10 w-full">
                 Log in
             </x-button>
         </form>

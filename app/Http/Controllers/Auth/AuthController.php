@@ -29,6 +29,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        // Log incoming request data for debugging
+        \Log::info('Login attempt', [
+            'email' => $request->email,
+            'remember' => $request->boolean('remember'),
+            'request_data' => $request->all()
+        ]);
+        
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -36,10 +43,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-
+            \Log::info('Login successful', ['user' => Auth::user()->email]);
             return redirect()->intended(route('dashboard'));
         }
 
+        \Log::warning('Login failed', ['email' => $request->email]);
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->withInput($request->except('password'));

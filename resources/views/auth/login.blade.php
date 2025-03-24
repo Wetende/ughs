@@ -4,7 +4,7 @@
 
 @section('body')
     <x-partials.authentication-card>
-        <form action="{{ route('login.submit') }}" method="POST" class="px-3 md:p-5 w-full border-b-2">
+        <form action="{{ route('login.submit') }}" method="POST" class="px-3 md:p-5 w-full border-b-2" id="loginForm">
             @csrf
             
             @if ($errors->any())
@@ -25,7 +25,7 @@
                 <label for="remember">Remember Me</label>
             </div>
 
-            <x-button type="submit" class="my-3 px-6 md:px-10 w-full">
+            <x-button class="my-3 px-6 md:px-10 w-full" type="submit" id="loginButton">
                 Log in
             </x-button>
         </form>
@@ -39,3 +39,24 @@
         </x-slot:footer>
     </x-partials.authentication-card>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Login page loaded');
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            console.log('Form submitted');
+            console.log('Form action: ' + this.getAttribute('action'));
+            console.log('Form method: ' + this.getAttribute('method'));
+            // Don't prevent default to allow normal form submission
+        });
+
+        document.getElementById('loginButton').addEventListener('click', function(e) {
+            console.log('Login button clicked');
+            // Explicitly submit the form when button is clicked
+            document.getElementById('loginForm').submit();
+        });
+    });
+</script>
+@endpush

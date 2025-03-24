@@ -2,149 +2,326 @@
 
 namespace App\Livewire;
 
-use App\Models\County;
-use App\Models\MyClass;
-use App\Models\Section;
-use App\Models\StudentRecord;
 use App\Models\User;
-use App\Services\School\SchoolService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Models\ParentRecord;
+use App\Models\StudentRecord;
+use App\Models\School;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 class RegistrationForm extends Component
 {
+    // Basic user fields
+    public $first_name;
+    public $last_name;
     public $email;
     public $password;
     public $password_confirmation;
-    public $first_name;
-    public $last_name;
     public $username;
-    public $gender;
-    public $role = 'student';
-    public $phone;
-    public $id_number;
-    public $passport_number;
-    public $admission_number;
-    public $admission_date;
-    public $my_class_id;
-    public $section_id;
+    public $role;
+    public $school;
+    public $school_id;
+    
+    // Personal information
     public $birthday;
     public $address;
     public $blood_group;
     public $denomination;
     public $county_id;
     public $city;
+    public $gender;
+    public $phone;
+    public $id_number;
+    public $passport_number;
+    
+    // Parent-specific fields
+    public $relationship;
+    public $student_admission_number;
+    
+    // Student-specific fields
+    public $admission_number;
+    public $admission_date;
+    public $my_class_id;
+    public $section_id;
+    
+    // Available options
+    public $roles = [];
+    public $counties = [];
+    public $my_classes = [];
+    public $sections = [];
+    
+    // Form processing state
+    public $isSubmitting = false;
+    public $registrationComplete = false;
+    public $successMessage = '';
+    public $redirectTo = null;
+    
+    // Component identification helpers
+    public $componentId;
 
-    public $school;
-    public $my_classes;
-    public $sections;
-    public $counties;
-    public $roles;
+    // Define all listeners
+    protected $listeners = ['formSubmit' => 'register'];
 
-    protected $listeners = ['classSelected' => 'loadSections'];
-
-    public function mount(SchoolService $schoolService)
+    public function boot()
     {
-        $this->school = $schoolService->getSchool();
-        $this->roles = Role::whereIn('name', ['student', 'teacher', 'parent'])->get();
-        $this->loadClasses();
-        $this->loadCounties();
-    }
-
-    public function loadClasses()
-    {
-        $this->my_classes = MyClass::whereHas('classGroup', function($query) {
-            $query->where('school_id', $this->school->id);
-        })->get();
-    }
-
-    public function loadSections()
-    {
-        if ($this->my_class_id) {
-            $this->sections = Section::where('my_class_id', $this->my_class_id)->get();
-        }
-    }
-
-    public function loadCounties()
-    {
-        $this->counties = County::all();
-    }
-
-    public function updatedMyClassId()
-    {
-        $this->loadSections();
+        $this->componentId = uniqid('registration-');
     }
 
     protected function rules()
     {
-        // Get base validation rules for the selected role
-        $rules = User::getValidationRules($this->role);
-
-        // Add student-specific validation if role is student
+        // Base required fields for all users
+        $rules = [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|confirmed',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|unique:users|max:255',
+            'gender' => 'required|in:male,female',
+            'role' => 'required|in:teacher,student,parent',
+        ];
+        
+        // Role-specific validation rules
         if ($this->role === 'student') {
-            $studentRules = [
-                'admission_number' => 'required|string|unique:student_records',
-                'admission_date' => 'nullable|date',
-                'my_class_id' => 'nullable|exists:my_classes,id',
-                'section_id' => 'nullable|exists:sections,id',
-            ];
-            $rules = array_merge($rules, $studentRules);
+            $rules['admission_number'] = 'required|string|unique:student_records,admission_number';
+            $rules['phone'] = 'nullable|string';
+        } elseif ($this->role === 'parent') {
+            $rules['phone'] = 'required|string';
+            $rules['student_admission_number'] = 'required|string|exists:student_records,admission_number';
+            $rules['relationship'] = 'required|string|in:father,mother,guardian,other';
+            // Either ID number or passport number is required
+            $rules['id_number'] = 'required_without:passport_number|nullable|string';
+            $rules['passport_number'] = 'required_without:id_number|nullable|string';
+        } elseif ($this->role === 'teacher') {
+            $rules['phone'] = 'required|string';
+            $rules['id_number'] = 'required|string';
+            $rules['passport_number'] = 'nullable|string';
         }
-
-        // Add password confirmation rule
-        $rules['password_confirmation'] = 'required|same:password';
-
+        
+        // Optional fields for all users
+        $rules['birthday'] = 'nullable|date';
+        $rules['address'] = 'nullable|string';
+        $rules['blood_group'] = 'nullable|string';
+        $rules['denomination'] = 'nullable|string';
+        $rules['county_id'] = 'nullable|exists:counties,id';
+        $rules['city'] = 'nullable|string';
+        
         return $rules;
+    }
+
+    public function mount()
+    {
+        try {
+            $this->school = School::first();
+            if ($this->school) {
+                $this->school_id = $this->school->id;
+            }
+            $this->roles = Role::whereIn('name', ['teacher', 'student', 'parent'])->get();
+            $this->counties = \App\Models\County::all();
+            $this->my_classes = \App\Models\MyClass::all();
+            
+            \Log::info('RegistrationForm component mounted', [
+                'component_id' => $this->componentId,
+                'roles_count' => is_object($this->roles) ? $this->roles->count() : count($this->roles)
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error in RegistrationForm mount: ' . $e->getMessage());
+            session()->flash('error', 'Error loading registration form: ' . $e->getMessage());
+        }
+    }
+
+    public function hydrate()
+    {
+        \Log::info('RegistrationForm component hydrated', [
+            'component_id' => $this->componentId,
+            'role' => $this->role
+        ]);
+    }
+
+    public function dehydrate()
+    {
+        \Log::info('RegistrationForm component dehydrated', [
+            'component_id' => $this->componentId,
+            'role' => $this->role
+        ]);
+    }
+
+    public function updatedMyClassId($value)
+    {
+        if ($value) {
+            try {
+                $this->sections = \App\Models\Section::where('my_class_id', $value)->get();
+                \Log::info('Updated sections based on class', [
+                    'component_id' => $this->componentId,
+                    'my_class_id' => $value,
+                    'sections_count' => is_object($this->sections) ? $this->sections->count() : count($this->sections)
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('Error loading sections: ' . $e->getMessage());
+            }
+        }
+    }
+
+    public function updatedRole($value)
+    {
+        \Log::info('Role updated', [
+            'component_id' => $this->componentId,
+            'previous_role' => $this->role,
+            'new_role' => $value
+        ]);
+        
+        // Reset role-specific fields when role changes
+        if ($value === 'student') {
+            $this->reset(['admission_number', 'admission_date', 'my_class_id', 'section_id']);
+        } elseif ($value === 'parent') {
+            $this->reset(['relationship', 'student_admission_number']);
+        } elseif ($value === 'teacher') {
+            $this->reset(['id_number', 'phone']);
+        }
     }
 
     public function register()
     {
-        $validatedData = $this->validate($this->rules());
-
+        // Prevent double submission
+        if ($this->isSubmitting) {
+            \Log::warning('Prevented duplicate form submission', [
+                'component_id' => $this->componentId
+            ]);
+            return;
+        }
+        
+        $this->isSubmitting = true;
+        
+        \Log::info('Registration form submitted', [
+            'component_id' => $this->componentId,
+            'user_data' => [
+                'email' => $this->email,
+                'role' => $this->role,
+                'username' => $this->username
+            ]
+        ]);
+        
         try {
+            // Validate form data
+            $validatedData = $this->validate();
+            
             DB::beginTransaction();
-
-            // Prepare user data by removing student-specific fields
-            $userData = collect($validatedData)
-                ->except(['admission_number', 'admission_date', 'my_class_id', 'section_id', 'password_confirmation'])
-                ->toArray();
-
-            // Add school_id and hash password
-            $userData['school_id'] = $this->school->id;
-            $userData['password'] = Hash::make($userData['password']);
-
-            // Create user
-            $user = User::create($userData);
+            
+            // Create the user
+            $user = User::create([
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'name' => $this->first_name . ' ' . $this->last_name,
+                'email' => $this->email,
+                'username' => $this->username,
+                'password' => Hash::make($this->password),
+                'gender' => $this->gender,
+                'school_id' => $this->school_id,
+                'birthday' => $this->birthday ?? null,
+                'address' => $this->address ?? null,
+                'blood_group' => $this->blood_group ?? null,
+                'denomination' => $this->denomination ?? null,
+                'county_id' => $this->county_id ?? null,
+                'city' => $this->city ?? null,
+                'phone' => $this->phone ?? null,
+                'id_number' => $this->id_number ?? null,
+                'passport_number' => $this->passport_number ?? null,
+            ]);
             
             // Assign role
-            $user->assignRole(strtolower($this->role));
-
-            // Create student record if role is student
-            if (strtolower($this->role) === 'student') {
-                StudentRecord::create([
-                    'user_id' => $user->id,
-                    'admission_number' => $validatedData['admission_number'],
-                    'admission_date' => $validatedData['admission_date'],
-                    'my_class_id' => $validatedData['my_class_id'],
-                    'section_id' => $validatedData['section_id'],
-                ]);
+            $user->assignRole($this->role);
+            
+            // Handle role-specific data
+            switch ($this->role) {
+                case 'parent':
+                    // Create parent record
+                    $parentRecord = ParentRecord::create([
+                        'user_id' => $user->id,
+                    ]);
+                    
+                    // Link to student
+                    $student = User::whereHas('studentRecord', function($query) {
+                        $query->where('admission_number', $this->student_admission_number);
+                    })->first();
+                    
+                    if ($student) {
+                        $parentRecord->students()->attach($student->id, [
+                            'relationship' => $this->relationship
+                        ]);
+                    }
+                    break;
+                
+                case 'student':
+                    StudentRecord::create([
+                        'user_id' => $user->id,
+                        'admission_number' => $this->admission_number,
+                        'admission_date' => $this->admission_date ?? now(),
+                        'my_class_id' => $this->my_class_id ?? null,
+                        'section_id' => $this->section_id ?? null,
+                    ]);
+                    break;
+                
+                case 'teacher':
+                    \App\Models\TeacherRecord::create([
+                        'user_id' => $user->id,
+                    ]);
+                    break;
             }
-
+            
             DB::commit();
-
-            // Log the user in
-            Auth::login($user);
-
-            // Redirect to main dashboard
-            return redirect()->route('dashboard');
-
+            
+            // Set success state
+            $this->registrationComplete = true;
+            $this->successMessage = 'Account created successfully! Please login.';
+            $this->redirectTo = route('login');
+            
+            \Log::info('User registered successfully', [
+                'component_id' => $this->componentId,
+                'user_id' => $user->id
+            ]);
+            
+            // Reset user input fields but keep component state for successful redirect
+            $this->reset([
+                'first_name', 'last_name', 'email', 'password', 'password_confirmation',
+                'username', 'gender', 'birthday', 'address', 'blood_group', 'denomination',
+                'county_id', 'city', 'phone', 'id_number', 'passport_number',
+                'relationship', 'student_admission_number', 'admission_number', 
+                'admission_date', 'my_class_id', 'section_id', 'role'
+            ]);
+            
+            $this->isSubmitting = false;
+            
+            // Store success message in session (persists across redirects)
+            session()->flash('success', $this->successMessage);
+            
+            // After component update is complete, dispatch a browser event to handle the redirect
+            $this->dispatch('registrationComplete', [
+                'message' => $this->successMessage,
+                'redirect' => $this->redirectTo
+            ]);
+            
         } catch (\Exception $e) {
             DB::rollBack();
-            session()->flash('error', 'Registration failed. Please try again.');
-            throw $e;
+            $this->isSubmitting = false;
+            
+            \Log::error('Registration failed', [
+                'component_id' => $this->componentId,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            // Set error flash message
+            session()->flash('error', 'Registration failed: ' . $e->getMessage());
+            
+            // Add detailed error for debugging
+            $this->addError('registration_error', 'Registration failed: ' . $e->getMessage());
+            
+            // Dispatch error event
+            $this->dispatch('registrationError', [
+                'message' => 'Registration failed: ' . $e->getMessage()
+            ]);
         }
     }
 
@@ -152,4 +329,4 @@ class RegistrationForm extends Component
     {
         return view('livewire.registration-form');
     }
-}
+} 

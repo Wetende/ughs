@@ -5,19 +5,19 @@
 @section('content')
 <!-- Hero Section -->
 <main>
-<section aria-label="Hero Slider" class="relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] w-full bg-white overflow-hidden">
+<section aria-label="Hero Slider" class="relative h-[800px] md:h-[900px] lg:h-[95vh] w-full bg-white overflow-hidden hero-section">
     <!-- Slider container -->
     <div class="swiper hero-slider h-full w-full" role="region" aria-roledescription="carousel">
         <div class="swiper-wrapper">
             <!-- Slide 1: Welcome -->
             <div class="swiper-slide relative" role="group" aria-roledescription="slide">
                 <div class="absolute inset-0 bg-cover bg-center transition-all duration-700" 
-                     data-background-image="{{ asset('assets/images/school-entrance.jpg') }}"
+                     data-background-image="{{ asset('images/hero/school-building.jpg') }}"
                      aria-hidden="true">
                     <div class="absolute inset-0 bg-black opacity-60"></div>
                 </div>
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-10">
-                    <div class="text-white max-w-2xl mx-auto lg:mx-0">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-16 relative z-10">
+                    <div class="text-white max-w-2xl mx-auto text-center">
                         <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 animate-fadeIn">Welcome to Uasin Gishu High School</h1>
                         <p class="text-base sm:text-lg md:text-xl mb-2 animate-slideUp">Only the Best</p>
                         <p class="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 md:mb-8 animate-slideUp">📍 Eldoret, Kenya</p>
@@ -34,12 +34,12 @@
             <!-- Slide 2: Vision & Mission -->
             <div class="swiper-slide relative" role="group" aria-roledescription="slide">
                 <div class="absolute inset-0 bg-cover bg-center" 
-                     data-background-image="{{ asset('assets/images/students-learning.jpg') }}"
+                     data-background-image="{{ asset('images/hero/students.jpg') }}"
                      aria-hidden="true">
                     <div class="absolute inset-0 bg-black opacity-60"></div>
                 </div>
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-10">
-                    <div class="text-white max-w-2xl">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-16 relative z-10">
+                    <div class="text-white max-w-2xl mx-auto text-center">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-6">Our Vision & Mission</h2>
                         <div class="mb-2 sm:mb-4">
                             <h3 class="text-xl sm:text-2xl font-semibold mb-1 sm:mb-2">Vision</h3>
@@ -62,12 +62,12 @@
             <!-- Slide 3: Student Life -->
             <div class="swiper-slide relative" role="group" aria-roledescription="slide">
                 <div class="absolute inset-0 bg-cover bg-center" 
-                     data-background-image="{{ asset('assets/images/student-life.jpg') }}"
+                     data-background-image="{{ asset('images/hero/student-life.jpg') }}"
                      aria-hidden="true">
                     <div class="absolute inset-0 bg-black opacity-60"></div>
                 </div>
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-10">
-                    <div class="text-white max-w-2xl">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-16 relative z-10">
+                    <div class="text-white max-w-2xl mx-auto text-center">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-6">Vibrant Student Life</h2>
                         <p class="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 md:mb-8">Join our diverse clubs and societies, participate in sports, and develop your talents through various extracurricular activities.</p>
                         <a href="/student-life" class="inline-flex items-center px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors" aria-label="Explore activities at our school">
@@ -83,12 +83,12 @@
             <!-- Slide 4: Academic Excellence -->
             <div class="swiper-slide relative" role="group" aria-roledescription="slide">
                 <div class="absolute inset-0 bg-cover bg-center" 
-                     data-background-image="{{ asset('assets/images/academics.jpg') }}"
+                     data-background-image="{{ asset('images/hero/academics.jpg') }}"
                      aria-hidden="true">
                     <div class="absolute inset-0 bg-black opacity-60"></div>
                 </div>
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-10">
-                    <div class="text-white max-w-2xl">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-16 relative z-10">
+                    <div class="text-white max-w-2xl mx-auto text-center">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-6">Academic Excellence</h2>
                         <p class="text-base sm:text-lg md:text-xl mb-2 sm:mb-4">We offer a comprehensive curriculum with:</p>
                         <ul class="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 md:mb-8 space-y-1 sm:space-y-2">
@@ -110,12 +110,12 @@
             <!-- Slide 5: Admissions -->
             <div class="swiper-slide relative" role="group" aria-roledescription="slide">
                 <div class="absolute inset-0 bg-cover bg-center" 
-                     data-background-image="{{ asset('assets/images/admission.jpg') }}"
+                     data-background-image="{{ asset('images/hero/admissions.jpg') }}"
                      aria-hidden="true">
                     <div class="absolute inset-0 bg-black opacity-60"></div>
                 </div>
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-10">
-                    <div class="text-white max-w-2xl">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-16 relative z-10">
+                    <div class="text-white max-w-2xl mx-auto text-center">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-6">Join Our Community</h2>
                         <p class="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 md:mb-8">Take the first step towards excellence. Applications are now open for new students.</p>
                         <div class="space-x-2 sm:space-x-4">
@@ -139,12 +139,12 @@
             <!-- Slide 6: News & Announcements -->
             <div class="swiper-slide relative" role="group" aria-roledescription="slide">
                 <div class="absolute inset-0 bg-cover bg-center" 
-                     data-background-image="{{ asset('assets/images/noticeboard.jpg') }}"
+                     data-background-image="{{ asset('images/hero/notice.jpg') }}"
                      aria-hidden="true">
                     <div class="absolute inset-0 bg-black opacity-60"></div>
                 </div>
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-10">
-                    <div class="text-white max-w-2xl">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-16 relative z-10">
+                    <div class="text-white max-w-2xl mx-auto text-center">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-6">Stay Updated</h2>
                         <p class="text-base sm:text-lg md:text-xl mb-2 sm:mb-4">Latest School News & Updates</p>
                         <ul class="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 md:mb-8 space-y-1 sm:space-y-2" aria-label="News categories">
@@ -171,17 +171,21 @@
         <!-- Pagination -->
         <div class="swiper-pagination" aria-label="Slide pagination"></div>
     </div>
-</div>
+</section>
 
 @push('styles')
 <style>
     .hero-slider {
         position: relative;
         width: 100%;
+        height: 100% !important; /* Force the slider to take full height */
     }
     .swiper-slide {
         position: relative;
         overflow: hidden;
+        height: 100% !important; /* Force each slide to take full height */
+        display: flex;
+        align-items: flex-end; /* Align content to bottom */
     }
     .swiper-slide-active .animate-fadeIn {
         animation: fadeIn 1s ease-out forwards;
@@ -273,6 +277,23 @@
         background: #1a365d;
         transform: scale(1.2);
     }
+    .swiper-wrapper {
+        height: 100% !important; /* Force wrapper to take full height */
+    }
+    .hero-section {
+        height: 800px;
+        max-height: 95vh; /* Set a maximum height for very tall screens */
+    }
+    @media (min-width: 768px) {
+        .hero-section {
+            height: 900px;
+        }
+    }
+    @media (min-width: 1024px) {
+        .hero-section {
+            height: 95vh;
+        }
+    }
 </style>
 @endpush
 
@@ -304,6 +325,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fadeEffect: {
                 crossFade: true
             },
+            autoHeight: false,
+            height: null,
             speed: 1000,
             loop: true,
             autoplay: {
@@ -475,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <div class="space-y-6 mt-6 md:mt-0">
                 <figure class="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-xl">
-                    <img src="{{ asset('assets/images/school-building.jpg') }}" alt="School Building" class="w-full h-full object-cover" width="600" height="384" loading="lazy">
+                    <img src="{{ asset('images/hero/school-building.jpg') }}" alt="School Building" class="w-full h-full object-cover" width="600" height="384" loading="lazy">
                     <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
                         <div class="text-white">
                             <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2">Only the Best</h3>
@@ -568,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- News Item 1 -->
             <article class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
                 <div class="relative">
-                    <img src="{{ asset('assets/images/student-council.jpg') }}" alt="Student Council" class="w-full h-56 object-cover" width="400" height="224" loading="lazy">
+                    <img src="{{ asset('assets/images/student2.jpg') }}" alt="Student Council" class="w-full h-56 object-cover" width="400" height="224" loading="lazy">
                     <div class="absolute top-4 right-4 bg-blue-900 text-white px-4 py-1 rounded-full text-sm font-semibold">
                         FEB 2025
                     </div>
@@ -588,7 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- News Item 2 -->
             <article class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
                 <div class="relative">
-                    <img src="{{ asset('assets/images/sports.jpg') }}" alt="Sports Day" class="w-full h-56 object-cover" width="400" height="224" loading="lazy">
+                    <img src="{{ asset('images/hero/feliphe-schiarolli-hes6nUC1MVc-unsplash.jpg') }}" alt="Sports Day" class="w-full h-56 object-cover" width="400" height="224" loading="lazy">
                     <div class="absolute top-4 right-4 bg-green-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                         JAN 2025
                     </div>
@@ -608,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- News Item 3 -->
             <article class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
                 <div class="relative">
-                    <img src="{{ asset('assets/images/academics.jpg') }}" alt="Academic Excellence" class="w-full h-56 object-cover" width="400" height="224" loading="lazy">
+                    <img src="{{ asset('images/hero/academics.jpg') }}" alt="Academic Excellence" class="w-full h-56 object-cover" width="400" height="224" loading="lazy">
                     <div class="absolute top-4 right-4 bg-yellow-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
                         DEC 2024
                     </div>
@@ -695,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Image Side -->
                 <div class="relative hidden md:block">
                     <div class="absolute inset-0 bg-gradient-to-br from-blue-900 to-green-900 opacity-90" aria-hidden="true"></div>
-                    <img src="{{ asset('assets/images/campus-life.jpg') }}" alt="Campus Life" class="w-full h-full object-cover" loading="lazy">
+                    <img src="{{ asset('images/hero/campus-life.jpg') }}" alt="Campus Life" class="w-full h-full object-cover" loading="lazy">
                     <div class="absolute inset-0 flex items-center justify-center">
                         <div class="text-center text-white p-6">
                             <div class="text-5xl font-bold mb-4">2024</div>

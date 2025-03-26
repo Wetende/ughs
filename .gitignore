@@ -16,3 +16,6 @@ yarn-error.log
 /.vscode
 .htaccess
 /tmp
+/.cursor
+/.cursor/rules
+/.cursorrules

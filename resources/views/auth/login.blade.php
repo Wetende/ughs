@@ -45,17 +45,45 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Login page loaded');
         
+        // Log form fields when page loads
+        console.log('Initial form state:');
+        console.log('Email field: ' + (document.getElementById('email').value || 'empty'));
+        console.log('Password field: ' + (document.getElementById('password').value ? 'has value' : 'empty'));
+        console.log('Remember checkbox: ' + (document.getElementById('remember').checked ? 'checked' : 'unchecked'));
+        
+        // Monitor validation errors
+        const errorElements = document.querySelectorAll('.text-red-500 p');
+        if (errorElements.length > 0) {
+            console.log('Validation errors present:');
+            errorElements.forEach(el => console.log('- ' + el.textContent));
+        }
+        
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            console.log('Form submitted');
+            console.log('Form submission triggered');
+            
+            // Log form data before submission
+            const formData = new FormData(this);
+            console.log('Form data being submitted:');
+            for (const pair of formData.entries()) {
+                // Don't log actual password value for security
+                if (pair[0] === 'password') {
+                    console.log(pair[0] + ': [REDACTED]');
+                } else {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+            }
+            
             console.log('Form action: ' + this.getAttribute('action'));
             console.log('Form method: ' + this.getAttribute('method'));
             // Don't prevent default to allow normal form submission
         });
 
+        // The button is already type="submit" and will naturally submit the form
+        // No need to manually call submit() which causes double submission
         document.getElementById('loginButton').addEventListener('click', function(e) {
             console.log('Login button clicked');
-            // Explicitly submit the form when button is clicked
-            document.getElementById('loginForm').submit();
+            console.log('Is form valid? ' + document.getElementById('loginForm').checkValidity());
+            // Removed form.submit() call to prevent double submission
         });
     });
 </script>

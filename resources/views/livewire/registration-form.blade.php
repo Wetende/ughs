@@ -1,6 +1,7 @@
 @isset($roles)
     <div class="max-w-5xl mx-auto" wire:key="{{ $componentId }}">
-        <form wire:submit.prevent="register" class="w-full" id="registration-form-{{ $componentId }}">
+        <form wire:submit.prevent="register" method="POST" class="w-full" id="registration-form-{{ $componentId }}">
+            @csrf
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
@@ -259,6 +260,7 @@
                                     type="submit" 
                                     wire:loading.attr="disabled"
                                     wire:loading.class="opacity-75 cursor-not-allowed"
+                                    wire:click.prevent="register"
                                     class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-medium rounded-md transition-colors duration-200" 
                                     id="submit-registration-{{ $componentId }}"
                                 >

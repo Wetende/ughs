@@ -209,119 +209,187 @@ class RegistrationForm extends Component
             
             DB::beginTransaction();
             
-            // Create the user
-            $user = User::create([
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'name' => $this->first_name . ' ' . $this->last_name,
-                'email' => $this->email,
-                'username' => $this->username,
-                'password' => Hash::make($this->password),
-                'gender' => $this->gender,
-                'school_id' => $this->school_id,
-                'birthday' => $this->birthday ?? null,
-                'address' => $this->address ?? null,
-                'blood_group' => $this->blood_group ?? null,
-                'denomination' => $this->denomination ?? null,
-                'county_id' => $this->county_id ?? null,
-                'city' => $this->city ?? null,
-                'phone' => $this->phone ?? null,
-                'id_number' => $this->id_number ?? null,
-                'passport_number' => $this->passport_number ?? null,
-            ]);
-            
-            // Assign role
-            $user->assignRole($this->role);
-            
-            // Handle role-specific data
-            switch ($this->role) {
-                case 'parent':
-                    // Create parent record
-                    $parentRecord = ParentRecord::create([
-                        'user_id' => $user->id,
-                    ]);
-                    
-                    // Link to student
-                    $student = User::whereHas('studentRecord', function($query) {
-                        $query->where('admission_number', $this->student_admission_number);
-                    })->first();
-                    
-                    if ($student) {
-                        $parentRecord->students()->attach($student->id, [
-                            'relationship' => $this->relationship
-                        ]);
-                    }
-                    break;
+            try {
+                // Create the user
+                $user = User::create([
+                    'first_name' => $this->first_name,
+                    'last_name' => $this->last_name,
+                    'name' => $this->first_name . ' ' . $this->last_name,
+                    'email' => $this->email,
+                    'username' => $this->username,
+                    'password' => Hash::make($this->password),
+                    'gender' => $this->gender,
+                    'school_id' => $this->school_id,
+                    'birthday' => $this->birthday ?? null,
+                    'address' => $this->address ?? null,
+                    'blood_group' => $this->blood_group ?? null,
+                    'denomination' => $this->denomination ?? null,
+                    'county_id' => $this->county_id ?? null,
+                    'city' => $this->city ?? null,
+                    'phone' => $this->phone ?? null,
+                    'id_number' => $this->id_number ?? null,
+                    'passport_number' => $this->passport_number ?? null,
+                ]);
                 
-                case 'student':
-                    StudentRecord::create([
-                        'user_id' => $user->id,
-                        'admission_number' => $this->admission_number,
-                        'admission_date' => $this->admission_date ?? now(),
-                        'my_class_id' => $this->my_class_id ?? null,
-                        'section_id' => $this->section_id ?? null,
-                    ]);
-                    break;
+                \Log::info('User created', [
+                    'component_id' => $this->componentId,
+                    'user_id' => $user->id
+                ]);
                 
-                case 'teacher':
-                    \App\Models\TeacherRecord::create([
-                        'user_id' => $user->id,
-                    ]);
-                    break;
+                // Assign role
+                $user->assignRole($this->role);
+                
+                \Log::info('Role assigned', [
+                    'component_id' => $this->componentId,
+                    'user_id' => $user->id,
+                    'role' => $this->role
+                ]);
+                
+                // Handle role-specific data
+                switch ($this->role) {
+                    case 'parent':
+                        try {
+                            // Create parent record
+                            $parentRecord = ParentRecord::create([
+                                'user_id' => $user->id,
+                            ]);
+                            
+                            // Link to student
+                            $student = User::whereHas('studentRecord', function($query) {
+                                $query->where('admission_number', $this->student_admission_number);
+                            })->first();
+                            
+                            if ($student) {
+                                $parentRecord->students()->attach($student->id, [
+                                    'relationship' => $this->relationship
+                                ]);
+                                
+                                \Log::info('Parent linked to student', [
+                                    'component_id' => $this->componentId,
+                                    'parent_id' => $user->id,
+                                    'student_id' => $student->id,
+                                    'relationship' => $this->relationship
+                                ]);
+                            } else {
+                                throw new \Exception("Student with admission number {$this->student_admission_number} not found");
+                            }
+                        } catch (\Exception $e) {
+                            \Log::error('Error creating parent record: ' . $e->getMessage(), [
+                                'component_id' => $this->componentId,
+                                'user_id' => $user->id,
+                                'exception' => $e
+                            ]);
+                            throw $e; // Re-throw to trigger rollback
+                        }
+                        break;
+                        
+                    case 'student':
+                        try {
+                            // Create student record
+                            $studentRecord = StudentRecord::create([
+                                'user_id' => $user->id,
+                                'admission_number' => $this->admission_number,
+                                'admission_date' => $this->admission_date,
+                                'my_class_id' => $this->my_class_id,
+                                'section_id' => $this->section_id,
+                                'is_graduated' => false,
+                            ]);
+                            
+                            \Log::info('Student record created', [
+                                'component_id' => $this->componentId,
+                                'user_id' => $user->id,
+                                'student_record_id' => $studentRecord->id
+                            ]);
+                        } catch (\Exception $e) {
+                            \Log::error('Error creating student record: ' . $e->getMessage(), [
+                                'component_id' => $this->componentId,
+                                'user_id' => $user->id,
+                                'exception' => $e
+                            ]);
+                            throw $e; // Re-throw to trigger rollback
+                        }
+                        break;
+                    
+                    case 'teacher':
+                        try {
+                            // Create teacher record
+                            $teacherRecord = \App\Models\TeacherRecord::create([
+                                'user_id' => $user->id,
+                            ]);
+                            
+                            \Log::info('Teacher record created', [
+                                'component_id' => $this->componentId,
+                                'user_id' => $user->id,
+                                'teacher_record_id' => $teacherRecord->id
+                            ]);
+                        } catch (\Exception $e) {
+                            \Log::error('Error creating teacher record: ' . $e->getMessage(), [
+                                'component_id' => $this->componentId,
+                                'user_id' => $user->id,
+                                'exception' => $e
+                            ]);
+                            throw $e; // Re-throw to trigger rollback
+                        }
+                        break;
+                }
+                
+                DB::commit();
+                
+                \Log::info('Registration completed successfully', [
+                    'component_id' => $this->componentId,
+                    'user_id' => $user->id,
+                    'role' => $this->role
+                ]);
+                
+                // Registration successful
+                $this->registrationComplete = true;
+                $this->successMessage = 'Your account has been created successfully! You can now log in.';
+                $this->redirectTo = route('login');
+                
+                // Create notification or send welcome email
+                // $user->notify(new \App\Notifications\WelcomeNotification());
+                
+                $this->reset([
+                    'first_name', 'last_name', 'email', 'password', 'password_confirmation',
+                    'username', 'gender', 'birthday', 'address', 'phone', 'id_number',
+                    'admission_number', 'admission_date', 'relationship', 'student_admission_number'
+                ]);
+                
+                // Emit event for parent components
+                $this->emit('registrationComplete', [
+                    'message' => $this->successMessage,
+                    'redirect' => $this->redirectTo
+                ]);
+                
+            } catch (\Exception $e) {
+                DB::rollBack();
+                
+                \Log::error('Registration failed during record creation: ' . $e->getMessage(), [
+                    'component_id' => $this->componentId,
+                    'exception' => $e
+                ]);
+                
+                // Show user-friendly error message
+                session()->flash('error', 'There was a problem with your registration. Please try again or contact support. Error: ' . $e->getMessage());
             }
-            
-            DB::commit();
-            
-            // Set success state
-            $this->registrationComplete = true;
-            $this->successMessage = 'Account created successfully! Please login.';
-            $this->redirectTo = route('login');
-            
-            \Log::info('User registered successfully', [
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::warning('Registration validation failed', [
                 'component_id' => $this->componentId,
-                'user_id' => $user->id
+                'errors' => $e->errors()
             ]);
             
-            // Reset user input fields but keep component state for successful redirect
-            $this->reset([
-                'first_name', 'last_name', 'email', 'password', 'password_confirmation',
-                'username', 'gender', 'birthday', 'address', 'blood_group', 'denomination',
-                'county_id', 'city', 'phone', 'id_number', 'passport_number',
-                'relationship', 'student_admission_number', 'admission_number', 
-                'admission_date', 'my_class_id', 'section_id', 'role'
-            ]);
-            
-            $this->isSubmitting = false;
-            
-            // Store success message in session (persists across redirects)
-            session()->flash('success', $this->successMessage);
-            
-            // After component update is complete, dispatch a browser event to handle the redirect
-            $this->dispatch('registrationComplete', [
-                'message' => $this->successMessage,
-                'redirect' => $this->redirectTo
-            ]);
-            
+            // Let Livewire handle validation errors normally
+            throw $e;
         } catch (\Exception $e) {
-            DB::rollBack();
-            $this->isSubmitting = false;
-            
-            \Log::error('Registration failed', [
+            \Log::error('Unexpected registration error: ' . $e->getMessage(), [
                 'component_id' => $this->componentId,
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'exception' => $e
             ]);
             
-            // Set error flash message
-            session()->flash('error', 'Registration failed: ' . $e->getMessage());
-            
-            // Add detailed error for debugging
-            $this->addError('registration_error', 'Registration failed: ' . $e->getMessage());
-            
-            // Dispatch error event
-            $this->dispatch('registrationError', [
-                'message' => 'Registration failed: ' . $e->getMessage()
-            ]);
+            // Show user-friendly error message
+            session()->flash('error', 'An unexpected error occurred during registration. Please try again later.');
+        } finally {
+            $this->isSubmitting = false;
         }
     }
 
